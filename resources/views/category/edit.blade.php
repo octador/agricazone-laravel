@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('app')
 
 @section('content')
     <h1>Modifier le Post</h1>
