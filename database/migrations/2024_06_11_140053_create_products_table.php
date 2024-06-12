@@ -13,7 +13,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId(Category::class)->nullable()->constrained();
+            $table->foreignIdFor(Category::class)->nullable()->constrained();
             $table->string('image'); // Ajout de la colonne image
             $table->timestamps();
         });

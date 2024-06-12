@@ -12,10 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('stocks', function (Blueprint $table) {
-            $table->string('description')->nullable();
+        Schema::create('stocks', function (Blueprint $table) {
+            $table->id();
             $table->boolean('is_available')->default(true);
-            $table->foreignId(Product::class)->nullable()->constrained();
+            $table->foreignIdFor(Product::class)->nullable()->constrained();
             $table->integer('quantity');
             $table->float('price');
         });
