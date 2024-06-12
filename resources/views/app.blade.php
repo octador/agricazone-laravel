@@ -14,17 +14,19 @@
 
     <header>
         <!-- Ajoutez ici le contenu de votre en-tête -->
-        <h1>Agricazone</h1>
+        <h1>@yield('title')</h1>
     </header>
 
     <main>
-        <!-- Contenu dynamique de la page -->
-        @yield('content')
+        <div class="container">
+            <!--  page dynamique-->
+            @yield('content')
+        </div>
     </main>
 
     <footer>
         <!-- Ajoutez ici le contenu de votre pied de page -->
-        <p>&copy; 2024 Mon Application</p>
+        <p>&copy; 2024 Agricazone</p>
     </footer>
 
 </body>

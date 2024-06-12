@@ -1,6 +1,5 @@
 @extends('app')
 
 @section('content')
-<h1>Ajouter un Post</h1>
-
+<h1>Ajouter un categories</h1>
 @endsection

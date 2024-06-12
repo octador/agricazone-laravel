@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Category;
+use App\Models\Stock;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,9 +13,8 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->string('image')->nullable(); // Ajout de la colonne image
+            $table->foreignId(Category::class)->nullable()->constrained();
+            $table->string('image'); // Ajout de la colonne image
             $table->timestamps();
         });
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 Route::get('/', function () {
     return view('welcome');
 });
+// specifier si il va dans tel ou tel route
 
 // Routes pour les catégories
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');

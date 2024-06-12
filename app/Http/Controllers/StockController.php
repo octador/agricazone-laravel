@@ -2,20 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class StockController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $category = Category::all();
-        return view('category.index',[
-            'categories' => $category
-        ]);
+        //
     }
 
     /**
@@ -23,7 +20,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('category.create', compact('category'));
+        //
     }
 
     /**
@@ -37,7 +34,7 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(CategoryController $category)
+    public function show(Stock $stock)
     {
         //
     }
@@ -45,7 +42,7 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(CategoryController $category)
+    public function edit(Stock $stock)
     {
         //
     }
@@ -53,7 +50,7 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CategoryController $category)
+    public function update(Request $request, Stock $stock)
     {
         //
     }
@@ -61,7 +58,7 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CategoryController $category)
+    public function destroy(Stock $stock)
     {
         //
     }

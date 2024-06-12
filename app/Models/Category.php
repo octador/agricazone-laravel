@@ -2,23 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Model;
 
-class CreateCategoriesTable extends Migration
+class Category extends Model
 {
-    public function up()
-    {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-    }
+    use HasFactory;
 
-    public function down()
+    protected $fillable = ['id', 'name'];
+
+    /**
+     * Get the products for the category.
+     */
+    public function products()
     {
-        Schema::dropIfExists('categories');
+        return $this->hasMany(Product::class);
     }
 }
