@@ -1,14 +1,14 @@
 @extends('app')
 
 @section('content')
+
     <h1>Détails du Post</h1>
 
-    <p><strong>Titre :</strong> {{ $post->title }}</p>
-    <p><strong>Contenu :</strong> {{ $post->content }}</p>
+    <p><strong>nom :</strong> {{ $category->title }}</p>
 
-    <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">Modifier</a>
+    {# <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-primary">Modifier</a> #}
 
-    <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
+    <form action="{{ route('categories.destroy', $category->id) }}" method="POST">
         @csrf
         @method('DELETE')
         <button type="submit">Supprimer</button>

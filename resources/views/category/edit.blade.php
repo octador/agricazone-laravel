@@ -1,17 +1,25 @@
 @extends('app')
 
 @section('content')
-    <h1>Modifier le Post</h1>
+<h1>Edit Category</h1>
 
-    <form action="{{ route('posts.update', $post->id) }}" method="POST">
-        @csrf
-        @method('PUT')
-        <label for="title">Titre :</label>
-        <input type="text" name="title" id="title" value="{{ $post->title }}">
-        <br>
-        <label for="content">Contenu :</label>
-        <textarea name="content" id="content" cols="30" rows="10">{{ $post->content }}</textarea>
-        <br>
-        <button type="submit">Modifier</button>
-    </form>
+@if($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
+
+<form action="{{ route('categories.update', $category->slug) }}" method="POST">
+    @csrf
+    @method('post')
+    <div>
+        <label for="name">Category Name:</label>
+        <input type="text" id="name" name="name" value="{{ old('name', $category->name) }}" required>
+    </div>
+    <button type="submit">Update Category</button>
+</form>
 @endsection

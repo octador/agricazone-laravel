@@ -9,10 +9,14 @@ Route::get('/', function () {
 // specifier si il va dans tel ou tel route
 
 // Routes pour les catégories
-Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
-// Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-// Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
-// Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
-// Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
-// Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+Route::prefix('categories')->name('categories.')->controller(CategoryController::class)->group(function () {
+
+    Route::get('/', 'index')->name('index');
+    Route::get('/new', 'create')->name('create');
+    Route::post('/new', 'store')->name('store');
+    // Route::get('/{category}',  'show')->name('show');
+    Route::get('/{category}/edit', 'edit')->name('edit');
+    Route::post('/{category}/edit', 'update')->name('update');
+    // Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
+    // Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+});

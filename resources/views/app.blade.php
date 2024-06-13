@@ -18,6 +18,11 @@
     </header>
 
     <main>
+        @if(session('success'))
+        <div>
+            <p>{{ session('success') }}</p>
+        </div>
+        @endif
         <div class="container">
             <!--  page dynamique-->
             @yield('content')
