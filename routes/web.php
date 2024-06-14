@@ -2,11 +2,20 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\WelcomeController;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('/')->name('welcome.')->controller(WelcomeController::class)->group(function () {
+    
+    Route::get('/', 'index')->name('welcome');
+    Route::get('/{category}', 'show')->name('show');
+    Route::get('/welcome/{category}', [WelcomeController::class, 'show'])->name('welcome.show');
+
 });
+
 // specifier si il va dans tel ou tel route
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Routes pour les catégories
 Route::prefix('categories')->name('categories.')->controller(CategoryController::class)->group(function () {
@@ -17,10 +26,8 @@ Route::prefix('categories')->name('categories.')->controller(CategoryController:
     // Route::get('/{category}',  'show')->name('show');
     Route::get('/{category}/edit', 'edit')->name('edit');
     Route::post('/{category}/edit', 'update')->name('update');
+    Route::get('/{category}/search', 'search')->name('search');
     // Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
     // Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 });
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
