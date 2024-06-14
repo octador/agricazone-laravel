@@ -45,7 +45,7 @@ class CategoryController extends Controller
         //une fois les donner enregistrer je veux retourner sur la page index
         //with('success', 'La catégorie a bien été ajoutée');permet d'afficher un message qui est saugarder dans la globale session
         //on dois afficher dans la view index avec @if(session('success')) > alert< @endif
-        return redirect()->route('categories.index')->with('success', 'La categorie ' . $request->name . ' a bien été ajoutée');
+        return redirect()->route('category.index')->with('success', 'La categorie ' . $request->name . ' a bien été ajoutée');
     }
 
     /**

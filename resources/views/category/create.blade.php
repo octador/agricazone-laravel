@@ -6,7 +6,7 @@
 
 <h1>Ajouter un categories</h1>
 
-<form action="" method="post">
+<form action="{{route('category.store')}}" method="post">
     @csrf
 
     @if($errors->any())
