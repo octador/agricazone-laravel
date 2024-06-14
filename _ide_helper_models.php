@@ -129,3 +129,16 @@ namespace App\Models{
 	class User extends \Eloquent {}
 }
 
+namespace App\Models{
+/**
+ * 
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $user
+ * @property-read int|null $user_count
+ * @method static \Illuminate\Database\Eloquent\Builder|role newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|role newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|role query()
+ */
+	class role extends \Eloquent {}
+}
+

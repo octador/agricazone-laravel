@@ -12,12 +12,12 @@
                         @csrf
                         
                         <div class="row mb-3">
-                            <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
+
+                            <label for="role" class="col-md-4 col-form-label text-md-end">Agriculteur</label>
 
                             <div class="col-md-6">
                                 <select id="role" class="form-control" name="role">
                                     <option value="agriculteur">Agriculteur</option>
-                                    <option value="admin">Admin</option>
                                 </select>
                             </div>
                         </div>
