@@ -3,7 +3,6 @@
 @section('content')
 
 <h1>La page index</h1>
-@dump($categories)
 
 <h1>Categories</h1>
     <table>

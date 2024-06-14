@@ -20,3 +20,7 @@ Route::prefix('categories')->name('categories.')->controller(CategoryController:
     // Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
     // Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
