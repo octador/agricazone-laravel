@@ -23,10 +23,13 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::table('stocks', function (Blueprint $table) {
-        });
-    }
+     */public function down()
+{
+    Schema::table('stocks', function (Blueprint $table) {
+        $table->dropForeign(['product_id']);
+    });
+
+    Schema::dropIfExists('stocks');
+}
+
 };

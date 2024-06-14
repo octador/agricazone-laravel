@@ -21,4 +21,11 @@ class WelcomeController extends Controller
            'categories' => $category
        ]);
    }
+   public function search(){
+    $category= Category::all();
+     return view('search',[
+         'categories' => $category
+     ]
+ );
+ }
 }

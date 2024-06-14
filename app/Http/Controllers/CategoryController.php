@@ -74,6 +74,13 @@ class CategoryController extends Controller
         $category->update($request->validated());
         return redirect()->route('categories.index')->with('success', 'La catégorie ' . $request->name . ' a bien été modifié');
     }
+    public function search($slug){
+       
+        $category = Category::where('slug', $slug)->firstOrFail();
+        return view('category.search', [
+            'category' => [$category]
+        ]);
+    }
 
     /**
      * Remove the specified resource from storage.
