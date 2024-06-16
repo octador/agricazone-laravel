@@ -77,8 +77,9 @@ class CategoryController extends Controller
     public function search($slug){
        
         $category = Category::where('slug', $slug)->firstOrFail();
+        
         return view('category.search', [
-            'category' => [$category]
+            'category' => $category
         ]);
     }
 

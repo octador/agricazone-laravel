@@ -22,6 +22,8 @@ class WelcomeController extends Controller
        ]);
    }
    public function search(){
+    // recuperer les stock qui on la category du slug
+    
     $category= Category::all();
      return view('search',[
          'categories' => $category
