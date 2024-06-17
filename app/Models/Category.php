@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,10 +9,10 @@ use Illuminate\Support\Str;
 class Category extends Model
 {
     use HasFactory;
+    protected $table = 'category';
+    protected $fillable = ['id', 'name', 'image', 'slug'];
 
-    protected $fillable = ['id', 'name', 'slug'];
-
-// la methode boot(): eest magique elle permet de lancer la creation de slug a chaque creation d'une nouvelle categorie
+    // la methode boot(): eest magique elle permet de lancer la creation de slug a chaque creation d'une nouvelle categorie
     protected static function boot()
     {
         parent::boot();
@@ -24,7 +25,7 @@ class Category extends Model
             $category->slug = Str::slug($category->name);
         });
     }
-// getRouteKeyName(): est une methode magique qui permet de remplir les changes avec les slug au lieu des id
+    // getRouteKeyName(): est une methode magique qui permet de remplir les changes avec les slug au lieu des id
     public function getRouteKeyName()
     {
         return 'slug';

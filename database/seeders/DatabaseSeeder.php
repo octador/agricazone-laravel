@@ -3,8 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
+use Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +14,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $faker = Faker::create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        for ($i = 0; $i < 30; $i++) {
+            User::factory()->create([
+                'name' => $faker->firstName,
+                'lastname' => $faker->lastName,
+                'address' => $faker->address,
+                'postalcode' => $faker->postcode,
+                'city' => $faker->city,
+                'phone' => $faker->phoneNumber,
+                'role' => 'agriculteur',
+                'email' => $faker->unique()->safeEmail,
+                'password' => bcrypt('password'),
+                'remember_token' => Str::random(10),
+            ]);
+        }
+        $this->call([
+            CategorySeeder::class,
+        ]);
+        $this->call([
+            ProductSeeder::class,
         ]);
     }
 }

@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Stock;
+use App\Models\Collection;
 use Illuminate\Http\Request;
 
-class StockController extends Controller
+class CollectionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $stocks = Stock::all();
-        return view('stocks.index', compact('stocks'));
+        //
     }
 
     /**
@@ -35,7 +34,7 @@ class StockController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Stock $stock)
+    public function show(Collection $collection)
     {
         //
     }
@@ -43,7 +42,7 @@ class StockController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Stock $stock)
+    public function edit(Collection $collection)
     {
         //
     }
@@ -51,7 +50,7 @@ class StockController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Stock $stock)
+    public function update(Request $request, Collection $collection)
     {
         //
     }
@@ -59,7 +58,7 @@ class StockController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Stock $stock)
+    public function destroy(Collection $collection)
     {
         //
     }

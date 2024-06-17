@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\Category;
+use App\Models\Reservation;
+use App\Models\Status;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,9 +13,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->foreignIdFor(Category::class);
-        });
+       Schema::table('reservation', function (Blueprint $table) {
+           $table->foreignIdFor(Status::class);
+       });
     }
 
     /**
@@ -22,9 +23,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->dropForeign('category_id');
-            $table->dropColumn('category_id');
+        Schema::table('reservation', function (Blueprint $table) {
+            $table->dropForeign('status_id');
+            $table->dropColumn('status_id');
         });
     }
 };
