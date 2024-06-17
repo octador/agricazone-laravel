@@ -11,11 +11,13 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+    protected $table = 'produits';
 
     protected $fillable = [
         'name',
         'category_id',
         'image',
+        
     ];
 
     /**

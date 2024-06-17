@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -13,11 +14,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('stocks', function (Blueprint $table) {
-            $table->foreignIdFor(Product::class);
+        Schema::create('stocks', function (Blueprint $table) {
+            $table->id();
+            $table->boolean('is_available')->default(true);
+            $table->integer('quantity');
+            $table->float('price');
+            $table->timestamps(); // Ajout des timestamps si nécessaire
         });
         Schema::table('stocks', function (Blueprint $table) {
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(User::class)->constrained(); 
         });
     }
 
@@ -27,10 +32,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('stocks', function (Blueprint $table) {
-            $table->dropForeignIdFor(Product::class);
-        });
-        Schema::table('stocks', function (Blueprint $table) {
-            $table->dropForeignIdFor(User::class);
-        });
+            $table->dropForeignIdFor(User::class);  
+       });
+        Schema::dropIfExists('stocks');
     }
 };
