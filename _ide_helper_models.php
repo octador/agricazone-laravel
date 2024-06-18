@@ -153,12 +153,15 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $user_id
  * @property int $product_id
+ * @property string $description
  * @property-read \App\Models\Product $product
  * @property-read \App\Models\User $user
+ * @method static \Database\Factories\StockFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Stock newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Stock newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Stock query()
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereIsAvailable($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock wherePrice($value)

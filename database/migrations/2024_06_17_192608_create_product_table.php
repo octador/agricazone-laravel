@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('image'); // Ajout de la colonne image
             $table->timestamps();
+            
         });
 	 Schema::table('stocks', function (Blueprint $table) {
             $table->foreignIdFor(Product::class)->constrained();

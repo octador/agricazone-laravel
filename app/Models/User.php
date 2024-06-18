@@ -26,7 +26,7 @@ class User extends Authenticatable
         'postalcode',
         'city',
         'phone',
-        'role',
+        'role_id',
         'email',
         'password',
         'remember_token'

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class Stock extends Model
 {
     use HasFactory;
+    
     protected $table = 'stocks';
     protected $filable = ['id', 'product_id', 'quantity', 'price', 'description', 'is_available'];
 

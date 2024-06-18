@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WelcomeController;
 use App\Models\Category;
@@ -37,25 +38,16 @@ Route::prefix('category')->name('category.')->controller(CategoryController::cla
 
 
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-// // Routes pour les catégories
-// Route::prefix('categories')->name('categories.')->controller(CategoryController::class)->group(function () {
-//     Route::get('/', 'index')->name('index');
-//     Route::get('/new', 'create')->name('create');
-//     Route::post('/new', 'store')->name('store');
-//     Route::get('/{category}/edit', 'edit')->name('edit');
-//     Route::post('/{category}/edit', 'update')->name('update');
-//     Route::get('/{category}', 'show')->name('show');
-// });
 
-Route::prefix('product')->name('products.')->controller(ProductController::class)->group(function () { 
+Route::prefix('product')->name('product.')->controller(ProductController::class)->group(function () { 
 
-    Route::get('/', 'index')->name('index');
-    Route::get('/new', 'create')->name('create');
-    Route::post('/new', 'store')->name('store');
-    Route::get('/{product}/edit', 'edit')->name('edit');
-    Route::post('/{product}/edit', 'update')->name('update');
-    Route::get('/{product}', 'show')->name('show');
-    Route::get('/category/{id}','search')->name('search');
+    // Route::get('/', 'index')->name('index');
+    // Route::get('/new', 'create')->name('create');
+    // Route::post('/new', 'store')->name('store');
+    // Route::get('/{product}/edit', 'edit')->name('edit');
+    // Route::post('/{product}/edit', 'update')->name('update');
+    // Route::get('/{product}', 'show')->name('show');
+    Route::get('/{id}','search')->name('search');
 });

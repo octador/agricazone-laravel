@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Stock;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -63,12 +65,12 @@ class ProductController extends Controller
     {
         //
     }
-    public function search(){
-       
-        $category = Category::where()->firstOrFail();
-        
-        return view('product.search', [
-            'category' => $category
-        ]);
-    }
+    public function search($id)
+{
+    
+    $products = Product::where('category_id', $id)->get();
+    $category = Category::find($id);
+    return view('product.search', compact('products', 'category'));
+}
+
 }
