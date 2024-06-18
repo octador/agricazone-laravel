@@ -7,9 +7,6 @@ use App\Http\Controllers\WelcomeController;
 Route::prefix('/')->name('welcome.')->controller(WelcomeController::class)->group(function () {
     
     Route::get('/', 'index')->name('welcome');
-   
-
-
 });
 
 // specifier si il va dans tel ou tel route

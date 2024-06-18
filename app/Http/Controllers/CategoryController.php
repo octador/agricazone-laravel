@@ -59,10 +59,10 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit(Request $request)
     {
         return view('category.edit', [
-            'category' => $category
+            'category' => $request->category
         ]);
     }
 
@@ -74,7 +74,7 @@ class CategoryController extends Controller
         $category->update($request->validated());
         return redirect()->route('categories.index')->with('success', 'La catégorie ' . $request->name . ' a bien été modifié');
     }
-    public function search($slug){
+    public function search(Request $slug){
        
         $category = Category::where('slug', $slug)->firstOrFail();
         

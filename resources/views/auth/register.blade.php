@@ -16,7 +16,7 @@
                             <label for="role" class="col-md-4 col-form-label text-md-end">Agriculteur</label>
 
                             <div class="col-md-6">
-                                <select id="role" class="form-control" name="role">
+                                <select id="role_id" class="form-control" name="role_id">
                                     <option value="agriculteur">Agriculteur</option>
                                 </select>
                             </div>

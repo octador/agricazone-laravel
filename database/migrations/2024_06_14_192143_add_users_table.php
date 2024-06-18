@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Schema;
             $table->string('postalcode'); 
             $table->string('city'); 
             $table->string('phone'); 
-            $table->string('role'); 
         });
         
     }

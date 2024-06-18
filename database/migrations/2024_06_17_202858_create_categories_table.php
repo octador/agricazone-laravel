@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamps();
         });
 	Schema::table('products',function (blueprint $table){
-	$table->foreignIdFor(Category::class);
+	$table->foreignIdFor(Category::class)->constrained();
 	});
         
     }
