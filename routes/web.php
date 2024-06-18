@@ -2,12 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WelcomeController;
+use App\Models\Category;
+
 
 Route::prefix('/')->name('welcome.')->controller(WelcomeController::class)->group(function () {
     
     Route::get('/', 'index')->name('welcome');
 });
+
 
 // specifier si il va dans tel ou tel route
 Auth::routes();
@@ -18,12 +22,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('category')->name('category.')->controller(CategoryController::class)->group(function () {
 
     Route::get('/', 'index')->name('index');
-    Route::get('/new', 'create')->name('create');
-    Route::post('/new', 'store')->name('store');
-    Route::get('/{category}',  'show')->name('show');
-    Route::get('/{category}/edit', 'edit')->name('edit');
-    Route::post('/{category}/edit', 'update')->name('update');
-    Route::get('{category}', 'search')->name('search');
+    // Route::get('/new', 'create')->name('create');
+    // Route::post('/new', 'store')->name('store');
+    // Route::get('/{category}',  'show')->name('show');
+    // Route::get('/{category}/edit', 'edit')->name('edit');
+    // Route::post('/{category}/edit', 'update')->name('update');
+    Route::get('{name}', 'search')->name('search');
     // Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
     // Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 });
@@ -45,3 +49,13 @@ Route::prefix('category')->name('category.')->controller(CategoryController::cla
 //     Route::get('/{category}', 'show')->name('show');
 // });
 
+Route::prefix('product')->name('products.')->controller(ProductController::class)->group(function () { 
+
+    Route::get('/', 'index')->name('index');
+    Route::get('/new', 'create')->name('create');
+    Route::post('/new', 'store')->name('store');
+    Route::get('/{product}/edit', 'edit')->name('edit');
+    Route::post('/{product}/edit', 'update')->name('update');
+    Route::get('/{product}', 'show')->name('show');
+    Route::get('/category/{id}','search')->name('search');
+});

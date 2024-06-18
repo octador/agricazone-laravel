@@ -39,10 +39,27 @@ namespace App\Models{
 /**
  * 
  *
- * @property-read \App\Models\User|null $user
+ * @property int $id
+ * @property string $description
+ * @property string $adress
+ * @property string $postalcode
+ * @property string $city
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int $user_id
+ * @property-read \App\Models\User $user
+ * @method static \Database\Factories\CollectionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Collection newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Collection newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Collection query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Collection whereAdress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Collection whereCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Collection whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Collection whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Collection whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Collection wherePostalcode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Collection whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Collection whereUserId($value)
  */
 	class Collection extends \Eloquent {}
 }
@@ -52,12 +69,24 @@ namespace App\Models{
  * 
  *
  * @mixin IdeHelperProduct
- * @property-read \App\Models\Category|null $category
+ * @property int $id
+ * @property string $name
+ * @property string $image
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int $category_id
+ * @property-read \App\Models\Category $category
  * @property-read \App\Models\Stock|null $stock
  * @method static \Database\Factories\ProductFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Product newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Product query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereUpdatedAt($value)
  */
 	class Product extends \Eloquent {}
 }
@@ -85,6 +114,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
  * @property-read int|null $users_count
+ * @method static \Database\Factories\RoleFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Role newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Role newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Role query()
@@ -158,7 +188,6 @@ namespace App\Models{
  * @property string $postalcode
  * @property string $city
  * @property string $phone
- * @property string $role
  * @property int $role_id
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Collection> $collections
  * @property-read int|null $collections_count
@@ -184,7 +213,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePostalcode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRoleId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  */

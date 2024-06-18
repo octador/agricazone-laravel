@@ -17,7 +17,8 @@ class CategoryFactory extends Factory
         return [
             'name' => $name,
             'image' => $this->faker->imageUrl(),
-            'slug' => Str::slug($name),
+            
+            
         ];
     }
 }
