@@ -9,7 +9,7 @@
 
 @foreach ($categories as $category)
 
-<a href="{{route('product.search', $category->id)}}">{{$category->name}}"</a>
+<a href="{{route('stocks.search', $category->id)}}">{{$category->name}}"</a>
 @endforeach
 
 @endsection

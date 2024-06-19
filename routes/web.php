@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\WelcomeController;
 use App\Models\Category;
 
@@ -51,3 +52,14 @@ Route::prefix('product')->name('product.')->controller(ProductController::class)
     // Route::get('/{product}', 'show')->name('show');
     Route::get('/{id}','search')->name('search');
 });
+
+Route::prefix('stocks')->name('stocks.')->controller(StockController::class)->group(function () {
+
+    Route::get('/', 'index')->name('index');
+    // Route::get('/new', 'create')->name('create');
+    // Route::post('/new', 'store')->name('store');
+    // Route::get('/{product}/edit', 'edit')->name('edit');
+    // Route::post('/{product}/edit', 'update')->name('update');
+    // Route::get('/{product}', 'show')->name('show');
+    Route::get('/{id}','search')->name('search');
+}); 
