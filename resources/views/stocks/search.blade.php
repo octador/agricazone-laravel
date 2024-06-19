@@ -6,7 +6,7 @@
 
 <ul>
     @foreach($stocks as $stock)
-    <li>
+    <a href="{{ route('reservations.create', $stock->id) }}">
         @foreach($products as $product)
         produit-{{$product->name}} 
         @endforeach
@@ -24,7 +24,7 @@
 
         
         @endforeach
-    </li>
+</a>
 
 
 

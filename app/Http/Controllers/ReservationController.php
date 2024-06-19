@@ -20,7 +20,8 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        
+        $reservation = new Reservation();
+            return view('reservations.create', compact('reservation')); 
     }
 
     /**
@@ -28,7 +29,7 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Reservation::create(Reservation::class, $request->all());
     }
 
     /**

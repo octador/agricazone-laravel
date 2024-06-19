@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,7 +21,9 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             ProductSeeder::class,
             CollectionSeed::class,
-            StockSeeder::class
+            StockSeeder::class,
+            StatusSeed::class,
+            ReservationSeeder::class
         ]);
     }
 }
