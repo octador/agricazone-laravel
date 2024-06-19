@@ -7,7 +7,12 @@
 <ul>
     @foreach($stocks as $stock)
     <li>
-        {{ $stock->description }} - Quantity: {{ $stock->quantity }} - Price: ${{ $stock->price }} - Product ID: {{ $stock->product_id }} - User ID: {{ $stock->user_id }} -
+        @foreach($products as $product)
+        produit-{{$product->name}} 
+        @endforeach
+        
+        
+        description-{{ $stock->description }} - Quantity: {{ $stock->quantity }} - Price: ${{ $stock->price }} - Product ID: {{ $stock->product_id }} - User ID: {{ $stock->user_id }} -
 
         @foreach($users as $user)
             @if($stock->user_id == $user->id)
@@ -17,6 +22,7 @@
         @endif
         @endforeach
 
+        
         @endforeach
     </li>
 

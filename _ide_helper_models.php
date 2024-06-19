@@ -95,11 +95,23 @@ namespace App\Models{
 /**
  * 
  *
- * @property-read Reservation|null $reservation
- * @property-read \App\Models\User|null $user
+ * @property int $id
+ * @property string $quantity
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int $user_id
+ * @property int $status_id
+ * @property-read \App\Models\Status|null $status
+ * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Reservation newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Reservation newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Reservation query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereQuantity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereStatusId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereUserId($value)
  */
 	class Reservation extends \Eloquent {}
 }
@@ -130,12 +142,20 @@ namespace App\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property string $state
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Reservation> $reservation
  * @property-read int|null $reservation_count
  * @method static \Database\Factories\StatusFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Status newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Status newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Status query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Status whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Status whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Status whereState($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Status whereUpdatedAt($value)
  */
 	class Status extends \Eloquent {}
 }
@@ -192,6 +212,7 @@ namespace App\Models{
  * @property string $city
  * @property string $phone
  * @property int $role_id
+ * @property int $user_id
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Collection> $collections
  * @property-read int|null $collections_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
@@ -218,6 +239,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRoleId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereUserId($value)
  */
 	class User extends \Eloquent {}
 }

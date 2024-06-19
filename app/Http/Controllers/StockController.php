@@ -79,14 +79,14 @@ class StockController extends Controller
         // Récupérer les IDs des utilisateurs à partir des stocks
         $userIds = $stocks->pluck('user_id');
 
-        // Récupérer tous les noms des utilisateurs associés aux stocks
-        $users = User::whereIn('id', $userIds)->select('id')->get();
-        
+        // Récupérer tous les noms des utilisateurs associés aux stocks 
         $user = User::whereIn('id', $userIds)->select('name','id')->get();
         
         return view('stocks.search', [
             'stocks' => $stocks,
             'users' => $user,
+            'products' => $products
         ]);
+        
     }
 }

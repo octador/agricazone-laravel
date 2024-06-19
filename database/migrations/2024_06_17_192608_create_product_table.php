@@ -28,7 +28,9 @@ return new class extends Migration
 
     public function down()
     {
-        Schema::dropForeignIdFor(Product::class);
+        Schema::table('stocks', function (Blueprint $table) {
+            $table->dropForeignIdFor(Product::class);
+        });
         Schema::dropIfExists('products');
     }
 };
