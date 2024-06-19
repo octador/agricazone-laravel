@@ -212,7 +212,6 @@ namespace App\Models{
  * @property string $city
  * @property string $phone
  * @property int $role_id
- * @property int $user_id
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Collection> $collections
  * @property-read int|null $collections_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
@@ -239,7 +238,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRoleId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereUserId($value)
  */
 	class User extends \Eloquent {}
 }

@@ -17,9 +17,7 @@ return new class extends Migration
             $table->string('state');
             $table->timestamps();
         });
-        Schema::table('reservation', function (Blueprint $table) {
-            $table->foreignIdFor(Status::class)->constrained();
-        });
+        
     }
 
     /**
@@ -27,9 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('reservation', function (Blueprint $table) {
-            $table->dropForeignIdFor(Status::class);
-        });
         Schema::dropIfExists('status');
     }
 };

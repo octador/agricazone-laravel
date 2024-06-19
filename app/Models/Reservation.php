@@ -15,11 +15,12 @@ class Reservation extends Model
         'user_id',
         'status_id',
     ];
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
-    public function status(){
+    public function status()
+    {
         return $this->belongsTo(Status::class);
     }
-   
 }
