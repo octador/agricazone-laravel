@@ -14,6 +14,10 @@ class Reservation extends Model
         'quantity',
         'user_id',
         'status_id',
+        'stock_id',
+        'collection_id',
+        'total_price'
+
     ];
     public function user()
     {
@@ -22,5 +26,13 @@ class Reservation extends Model
     public function status()
     {
         return $this->belongsTo(Status::class);
+    }
+    public function stock()
+    {
+        return $this->belongsTo(Stock::class);
+    }
+    public function collection()
+    {
+        return $this->belongsTo(Collection::class);
     }
 }

@@ -11,9 +11,16 @@ use Illuminate\Database\Eloquent\Model;
 class Stock extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'stocks';
-    protected $filable = ['id', 'product_id', 'quantity', 'price', 'description', 'is_available'];
+    protected $filable = [
+        'id',
+        'product_id',
+        'quantity',
+        'price',
+        'description',
+        'is_available'
+    ];
 
     public function product()
     {
@@ -22,5 +29,9 @@ class Stock extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function reservation()
+    {
+        return $this->hasMany(Reservation::class);
     }
 }

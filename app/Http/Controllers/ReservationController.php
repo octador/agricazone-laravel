@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Collection;
+use App\Models\Product;
 use App\Models\Reservation;
+use App\Models\Stock;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Route;
 
 class ReservationController extends Controller
 {
@@ -12,24 +17,54 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        //
+        $reservations = Reservation::all();
+        return view('reservations.index', compact('reservations'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(string $stock_id)
     {
+        $stock = Stock::find($stock_id);
+        $user_id = $stock->user_id;
+
+        $user_collection = Collection::where('user_id', $user_id)->get();
+
+        $product_id = $stock->product_id;
+        $product = Product::find($product_id);
+
         $reservation = new Reservation();
-            return view('reservations.create', compact('reservation')); 
+        return view('reservations.create', [
+            'reservation' => $reservation,
+            'stock' => $stock,
+            'product' => $product,
+            'user_collections' => $user_collection
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        Reservation::create(Reservation::class, $request->all());
+    {   
+        $price = $request->get('price');
+        $count = $price * $request->get('quantity');
+        $request->merge(['price_total' => $count]);
+
+        $validated = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'status_id' => 'required|exists:statuses,id',
+            'stock_id' => 'required|exists:stocks,id',
+            'quantity' => 'required|integer|min:1',
+            'price' => 'required|numeric|min:0',
+        ]);
+
+        // Création de la réservation
+        Reservation::create($validated);
+
+        // Redirection ou autre action après la création
+        return redirect()->route('reservations.index')->with('success', 'votre reservation a bien été créée. le montant total est de ' . $count . ' €');
     }
 
     /**

@@ -47,6 +47,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $user_id
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Reservation> $reservation
+ * @property-read int|null $reservation_count
  * @property-read \App\Models\User $user
  * @method static \Database\Factories\CollectionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Collection newModelQuery()
@@ -101,15 +103,24 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $user_id
  * @property int $status_id
- * @property-read \App\Models\Status|null $status
+ * @property int|null $stock_id
+ * @property int|null $collection_id
+ * @property float|null $total_price
+ * @property-read \App\Models\Collection|null $collection
+ * @property-read \App\Models\Status $status
+ * @property-read \App\Models\Stock|null $stock
  * @property-read \App\Models\User $user
+ * @method static \Database\Factories\ReservationFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Reservation newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Reservation newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Reservation query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereCollectionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereStatusId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereStockId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereTotalPrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Reservation whereUserId($value)
  */
@@ -146,8 +157,8 @@ namespace App\Models{
  * @property string $state
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Reservation> $reservation
- * @property-read int|null $reservation_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Reservation> $reservations
+ * @property-read int|null $reservations_count
  * @method static \Database\Factories\StatusFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Status newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Status newQuery()
@@ -175,6 +186,8 @@ namespace App\Models{
  * @property int $product_id
  * @property string $description
  * @property-read \App\Models\Product $product
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Reservation> $reservation
+ * @property-read int|null $reservation_count
  * @property-read \App\Models\User $user
  * @method static \Database\Factories\StockFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Stock newModelQuery()

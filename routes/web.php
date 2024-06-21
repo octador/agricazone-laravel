@@ -68,7 +68,7 @@ Route::prefix('stocks')->name('stocks.')->controller(StockController::class)->gr
 Route::prefix('reservations')->name('reservations.')->controller(ReservationController::class)->group(function () {
 
     Route::get('/', 'index')->name('index');
-    Route::get('/new', 'create')->name('create');
+    Route::get('/new/{id}', 'create')->name('create');
     Route::post('/new', 'store')->name('store');
     // Route::get('/{product}/edit', 'edit')->name('edit');
     // Route::post('/{product}/edit', 'update')->name('update');

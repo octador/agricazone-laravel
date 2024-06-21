@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Status extends Model
 {
     use HasFactory;
-    protected $table = 'status';
-    protected $fillable = ['id', 'state'];
 
-    public function reservation()
+    protected $table = 'statuses'; 
+    protected $fillable = ['id','state'];
+
+    public function reservations()
     {
         return $this->hasMany(Reservation::class);
     }
