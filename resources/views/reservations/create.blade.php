@@ -13,6 +13,7 @@
 @dump(Auth::user()->id)
 @dump($product)
 
+
 <div>
     
     <h3>Produits : {{ $product->name }}</h3>

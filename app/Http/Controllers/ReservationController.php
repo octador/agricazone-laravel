@@ -6,9 +6,8 @@ use App\Models\Collection;
 use App\Models\Product;
 use App\Models\Reservation;
 use App\Models\Stock;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Route;
+
 
 class ReservationController extends Controller
 {
@@ -21,7 +20,7 @@ class ReservationController extends Controller
         $user = auth()->user();
         $reservations = Reservation::where('user_id', $user->id)->get();
 
-        dd($reservations);
+        // dd($reservations);
         return view('reservations.index', compact('reservations'));
     }
 
@@ -54,18 +53,18 @@ class ReservationController extends Controller
 {
     $price = $request->get('price');
     $count = $price * $request->get('quantity');
-    $request->merge(['price_total' => $count]);
+    $request->merge(['total_price' => $count]);
     
-    dd($request->all());
+    // dd($request->all());
     $validated = $request->validate([
         'user_id' => 'required|exists:users,id',
         'status_id' => 'required|exists:statuses,id',
         'stock_id' => 'required|exists:stocks,id',
         'quantity' => 'required|integer|min:1',
-        'price_total' => 'required|numeric|min:1',
-        'collection_id' 
+        'total_price' => 'required|numeric|min:1',
+        'collection_id' => 'required|exists:collection,id'
     ]);
-    dd($validated);
+    // dd($validated);
 
     // Création de la réservation
     Reservation::create($validated);
