@@ -12,7 +12,6 @@
 @dump($stock)
 @dump(Auth::user()->id)
 @dump($product)
-@dump($user_collections)
 
 <div>
     
@@ -26,11 +25,11 @@
     
     
     <div class="form-group">
-        <label for="user_collection">point de vente</label>
-        <select name="user_collection" id="user_collection" class="form-control">
+        <label for="collection_id">point de vente</label>
+        <select name="collection_id" id="collection_id" class="form-control">
             
-            @foreach($user_collections as $user_collection)
-                <option value="{{ $user_collection->id }}">{{ $user_collection->city }}</option>
+            @foreach($collection_ids as $collection_id)
+                <option value="{{ $collection_id->id }}">{{ $collection_id->city }}</option>
             @endforeach
             
         </select>

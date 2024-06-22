@@ -17,7 +17,11 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::all();
+
+        $user = auth()->user();
+        $reservations = Reservation::where('user_id', $user->id)->get();
+
+        dd($reservations);
         return view('reservations.index', compact('reservations'));
     }
 
@@ -29,7 +33,7 @@ class ReservationController extends Controller
         $stock = Stock::find($stock_id);
         $user_id = $stock->user_id;
 
-        $user_collection = Collection::where('user_id', $user_id)->get();
+        $collection_id = Collection::where('user_id', $user_id)->get();
 
         $product_id = $stock->product_id;
         $product = Product::find($product_id);
@@ -39,7 +43,7 @@ class ReservationController extends Controller
             'reservation' => $reservation,
             'stock' => $stock,
             'product' => $product,
-            'user_collections' => $user_collection
+            'collection_ids' => $collection_id
         ]);
     }
 
@@ -47,25 +51,29 @@ class ReservationController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {   
-        $price = $request->get('price');
-        $count = $price * $request->get('quantity');
-        $request->merge(['price_total' => $count]);
+{
+    $price = $request->get('price');
+    $count = $price * $request->get('quantity');
+    $request->merge(['price_total' => $count]);
+    
+    dd($request->all());
+    $validated = $request->validate([
+        'user_id' => 'required|exists:users,id',
+        'status_id' => 'required|exists:statuses,id',
+        'stock_id' => 'required|exists:stocks,id',
+        'quantity' => 'required|integer|min:1',
+        'price_total' => 'required|numeric|min:1',
+        'collection_id' 
+    ]);
+    dd($validated);
 
-        $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'status_id' => 'required|exists:statuses,id',
-            'stock_id' => 'required|exists:stocks,id',
-            'quantity' => 'required|integer|min:1',
-            'price' => 'required|numeric|min:0',
-        ]);
+    // Création de la réservation
+    Reservation::create($validated);
 
-        // Création de la réservation
-        Reservation::create($validated);
+    // Redirection ou autre action après la création
+    return redirect()->route('reservations.index')->with('success', 'Votre réservation a bien été créée. Le montant total est de ' . $count . ' €');
+}
 
-        // Redirection ou autre action après la création
-        return redirect()->route('reservations.index')->with('success', 'votre reservation a bien été créée. le montant total est de ' . $count . ' €');
-    }
 
     /**
      * Display the specified resource.
