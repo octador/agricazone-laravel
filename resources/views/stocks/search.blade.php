@@ -1,8 +1,9 @@
-@extends('app')
+@extends('layouts.app')
 
 @section('title', 'Stock Search')
 
 @section('content')
+
 
 <h1>Stock Search Results</h1>
 

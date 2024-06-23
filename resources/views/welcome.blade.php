@@ -17,8 +17,9 @@
 </head>
 
 <body class="font-sans antialiased dark:bg-gray-900 dark:text-gray-300">
-    <header class="bg-teal-500 p-4 flex justify-between items-center">
-        <nav class="flex ">
+    
+    <header class=" flex justify-between items-center">
+        <nav class="">
             <div class="containernav">
                 <div class="containerlogo">
                     <a href=""><img src="{{ asset('images/logo_agricazone.png') }}" alt="logo agricazone" class="hover:text-gray-200"></a>
@@ -31,20 +32,29 @@
                         Stock
                     </a>
                     @else
-                    <a href="{{ route('login') }}" class="itemconnexion">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle mr-2" viewBox="0 0 16 16">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-                        </svg>
-                        Connectez-vous
-                    </a>
+                   
+
+                        <a href="{{ route('login') }}" class="itemconnexion">
+                            <div class="itemclick">
+                                <svg xmlns="http://www.w3.org/2000/svg" wdth="30" height="30" fill="currentColor" class="bi bi-person-circle mr-2" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                                </svg>
+                                Connectez-vous
+                            </div>
+                        </a>
+                   
                     @if (Route::has('register'))
                     <a href="{{ route('register') }}" class="iteminscription">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-vcard mr-2" viewBox="0 0 16 16">
+                        <div class="itemclick">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30
+                            " fill="currentColor" class="bi bi-person-vcard mr-2" viewBox="0 0 16 16">
                             <path d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5M9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8m1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5.5 0 0 1-.5-.5" />
                             <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96q.04-.245.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 1 1 12z" />
                         </svg>
                         Inscription
+                    </div>
                     </a>
                     @endif
                     @endauth

@@ -5,26 +5,23 @@
     margin: 0;
     padding: 0;
 }
+
 .containernav{
-    /* background-color: brown; */
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-right: 5px;
-    margin-left: 5px;
+    background-color: #36A793;
+   display: flex;
+   justify-content: space-between;
 }
 .containerlogo{
     /* background-color: brown; */
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-right: 5px;
-    margin-left: 5px;
+   justify-content: center;
+   align-items: center;
+   display: flex;
+   margin-left: 10px;
 }
 .containeritems{
     /* background-color: brown; */
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-right: 5px;
-    margin-left: 5px;
+display: flex;
+
 }
 .itemhome{
     margin-top: 5px;
@@ -33,14 +30,21 @@
     margin-left: 5px;
 }
 .itemconnexion{
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-right: 5px;
-    margin-left: 5px;
+    text-decoration:none;
 }
 .iteminscription{
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-right: 5px;
-    margin-left: 5px;
+    text-decoration:none;
+    /* color: white; */
+}
+.itemclick{
+    display: flex;
+    padding: 10px;
+    color: white;
+    flex-direction: column;
+    align-items: center;
+    text-decoration:none;
+}
+.buttonsee{
+    border: 2px solid red;
+    background-color: #36A793;
 }

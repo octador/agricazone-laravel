@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Collection;
 use App\Models\Product;
 use App\Models\Reservation;
+use App\Models\Status;
 use App\Models\Stock;
 use Illuminate\Http\Request;
-
+use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 class ReservationController extends Controller
 {
@@ -16,12 +17,13 @@ class ReservationController extends Controller
      */
     public function index()
     {
-
         $user = auth()->user();
         $reservations = Reservation::where('user_id', $user->id)->get();
-
-        // dd($reservations);
-        return view('reservations.index', compact('reservations'));
+        // On récupère le statut de la réservation du utilisateur
+        $status_id = $reservations->pluck('status_id')->first();
+        $status_name = Status::find($status_id)?->state;
+// recuperer le nom du produit
+        return view('reservations.index', compact('reservations', 'status_name'));
     }
 
     /**

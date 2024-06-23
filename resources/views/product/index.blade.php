@@ -4,6 +4,7 @@
 @section('title', 'Produits de la catégorie')
 
 @section('content')
+
     <h1>Produits de la catégorie : {{ $category->name }}</h1>
 
     @if($category->products->isEmpty())
