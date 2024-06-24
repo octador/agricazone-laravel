@@ -18,11 +18,12 @@ class ReservationController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $reservations = Reservation::where('user_id', $user->id)->get();
+        
+        $reservations = Reservation::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
         // On récupère le statut de la réservation du utilisateur
         $status_id = $reservations->pluck('status_id')->first();
         $status_name = Status::find($status_id)?->state;
-// recuperer le nom du produit
+        // recuperer le nom du produit
         return view('reservations.index', compact('reservations', 'status_name'));
     }
 
@@ -52,36 +53,42 @@ class ReservationController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $price = $request->get('price');
-    $count = $price * $request->get('quantity');
-    $request->merge(['total_price' => $count]);
-    
-    // dd($request->all());
-    $validated = $request->validate([
-        'user_id' => 'required|exists:users,id',
-        'status_id' => 'required|exists:statuses,id',
-        'stock_id' => 'required|exists:stocks,id',
-        'quantity' => 'required|integer|min:1',
-        'total_price' => 'required|numeric|min:1',
-        'collection_id' => 'required|exists:collection,id'
-    ]);
-    // dd($validated);
+    {
+        $price = $request->get('price');
+        $count = $price * $request->get('quantity');
+        $request->merge(['total_price' => $count]);
 
-    // Création de la réservation
-    Reservation::create($validated);
+        // dd($request->all());
+        $validated = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'status_id' => 'required|exists:statuses,id',
+            'stock_id' => 'required|exists:stocks,id',
+            'quantity' => 'required|integer|min:1',
+            'total_price' => 'required|numeric|min:1',
+            'collection_id' => 'required|exists:collection,id'
+        ]);
+        // dd($validated);
 
-    // Redirection ou autre action après la création
-    return redirect()->route('reservations.index')->with('success', 'Votre réservation a bien été créée. Le montant total est de ' . $count . ' €');
-}
+        // Création de la réservation
+        Reservation::create($validated);
+
+        // Redirection ou autre action après la création
+        return redirect()->route('reservations.index')->with('success', 'Votre réservation a bien été créée. Le montant total est de ' . $count . ' €');
+    }
 
 
     /**
      * Display the specified resource.
      */
-    public function show(Reservation $reservation)
+    public function show(string $id) 
     {
-        //
+        $reservation = Reservation::find($id);
+        $stock_id = Stock::find($reservation->stock_id);
+        $product_id = Product::find($stock_id->product_id); 
+        dd($product_id->name);
+        
+
+        return view('reservations.show', compact('reservation','product_id'));
     }
 
     /**

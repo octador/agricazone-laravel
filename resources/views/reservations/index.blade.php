@@ -28,6 +28,7 @@
                         @elseif($status_name=="cancel")
                             <span class="badge bg-danger">Annulé</span>
                         @endif
+                        <a href="{{ route('reservations.show', $reservation->id) }}">Détails</a>
                         </li>
                 </div>
                 @endforeach

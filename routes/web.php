@@ -72,6 +72,5 @@ Route::prefix('reservations')->name('reservations.')->controller(ReservationCont
     Route::post('/new', 'store')->name('store');
     // Route::get('/{product}/edit', 'edit')->name('edit');
     // Route::post('/{product}/edit', 'update')->name('update');
-    // Route::get('/{product}', 'show')->name('show');
-    // Route::get('/{id}','search')->name('search');
+    Route::get('/{id}', 'show')->name('show');
 });
