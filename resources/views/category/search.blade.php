@@ -1,4 +1,4 @@
-@extends('app')
+@extends('layouts.app')
 @sextion('title' , 'Search')
 @section('content')
 

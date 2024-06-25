@@ -1,4 +1,4 @@
-@extends('app')
+@extends('layouts.app')
 @section('title' , 'Ajouter un categories')
 @section('content')
 

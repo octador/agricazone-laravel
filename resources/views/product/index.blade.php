@@ -1,5 +1,5 @@
 <!-- resources/views/products/search.blade.php -->
-@extends('app')
+@extends('layouts.app')
 
 @section('title', 'Produits de la catégorie')
 
