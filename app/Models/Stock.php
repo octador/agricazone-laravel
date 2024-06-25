@@ -13,7 +13,7 @@ class Stock extends Model
     use HasFactory;
 
     protected $table = 'stocks';
-    protected $filable = [
+    protected $fillable = [
         'id',
         'product_id',
         'quantity',

@@ -54,6 +54,14 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
+         
+        
+        $stock = Stock::findOrFail($request->stock_id);
+        // dd($stock);
+        $stock->update([
+            'quantity' => $stock->quantity - $request->quantity,
+        ]);
+
         $price = $request->get('price');
         $count = $price * $request->get('quantity');
         $request->merge(['total_price' => $count]);
