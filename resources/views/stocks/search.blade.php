@@ -3,7 +3,6 @@
 @section('title', 'Stock Search')
 
 @section('content')
-
 <div class="container mt-5">
     <h1 class="mb-4">Stock Search Results</h1>
 
@@ -17,8 +16,12 @@
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Propriété</th>
-                        @foreach($stocks as $index => $stock)
-                            <th scope="col">Stock {{ $index + 1 }}</th>
+                        @foreach($stocks as $stock)
+                            @foreach($users as $user)
+                                @if($stock->user_id == $user->id)
+                                    <th scope="col">{{ $user->name }}</th>
+                                @endif
+                            @endforeach
                         @endforeach
                     </tr>
                 </thead>
@@ -48,18 +51,6 @@
                                 @foreach($products as $product)
                                     @if($product->id == $stock->product_id)
                                         {{ $product->name }}
-                                    @endif
-                                @endforeach
-                            </td>
-                        @endforeach
-                    </tr>
-                    <tr>
-                        <th scope="row">Utilisateur</th>
-                        @foreach($stocks as $stock)
-                            <td>
-                                @foreach($users as $user)
-                                    @if($stock->user_id == $user->id)
-                                        {{ $user->name }}
                                     @endif
                                 @endforeach
                             </td>

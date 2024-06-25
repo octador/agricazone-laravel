@@ -69,24 +69,26 @@ class StockController extends Controller
     {
         // Récupérer tous les produits ayant `category_id` égal à l'ID de la catégorie
         $products = Product::where('category_id', $id)->get();
-
+    
         // Récupérer les IDs des produits
         $productIds = $products->pluck('id');
-
+    
         // Récupérer tous les stocks associés à ces produits
         $stocks = Stock::whereIn('product_id', $productIds)->get();
-
+    
         // Récupérer les IDs des utilisateurs à partir des stocks
         $userIds = $stocks->pluck('user_id');
-
+    
         // Récupérer tous les noms des utilisateurs associés aux stocks 
-        $user = User::whereIn('id', $userIds)->select('name','id')->get();
-        
+        $users = User::whereIn('id', $userIds)->select('name', 'id')->get();
+    
+        // Retourner la vue avec les données
         return view('stocks.search', [
             'stocks' => $stocks,
-            'users' => $user,
+            'users' => $users,
             'products' => $products
         ]);
-        
     }
+    
+
 }
