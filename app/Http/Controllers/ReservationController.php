@@ -8,6 +8,7 @@ use App\Models\Reservation;
 use App\Models\Status;
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use Log;
 use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 class ReservationController extends Controller
@@ -18,7 +19,7 @@ class ReservationController extends Controller
     public function index()
     {
         $user = auth()->user();
-        
+
         $reservations = Reservation::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
         // On récupère le statut de la réservation du utilisateur
         $status_id = $reservations->pluck('status_id')->first();
@@ -54,8 +55,8 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-         
-        
+
+
         $stock = Stock::findOrFail($request->stock_id);
         // dd($stock);
         $stock->update([
@@ -80,6 +81,7 @@ class ReservationController extends Controller
         // Création de la réservation
         Reservation::create($validated);
 
+        // dd($validated);
         // Redirection ou autre action après la création
         return redirect()->route('reservations.index')->with('success', 'Votre réservation a bien été créée. Le montant total est de ' . $count . ' €');
     }
@@ -88,38 +90,82 @@ class ReservationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id) 
+    public function show(string $id)
     {
         $reservation = Reservation::find($id);
-        $stock_id = Stock::find($reservation->stock_id);
-        $product_id = Product::find($stock_id->product_id); 
-        dd($product_id->name);
-        
+        $stock = Stock::find($reservation->stock_id);
+        $product = Product::find($stock->product_id);
+        $collection = Collection::find($reservation->collection_id);
+        $status = Status::find($reservation->status_id);
 
-        return view('reservations.show', compact('reservation','product_id'));
+        // dd($product_id->name);
+
+
+        return view('reservations.show', compact('reservation', 'product', 'stock', 'collection', 'status'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Reservation $reservation)
+    public function edit(string $id)
     {
-        //
+        $reservation = Reservation::find($id);
+        $stock = Stock::find($reservation->stock_id);
+        $product = Product::find($stock->product_id);
+        $collections = Collection::where('user_id', $stock->user_id)->get();
+
+        return view('reservations.edit', compact('reservation', 'stock', 'product', 'collections'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Reservation $reservation)
+    public function update(string $id, Request $request)
     {
-        //
+
+
+
+
+        // return redirect()->route('reservations.index')->with('success', 'La reservation a bien été mise à jour');
+        $reservation = Reservation::find($id);
+        $stock = Stock::find($reservation->stock_id);
+        // Récupérer l'ancienne quantité réservée pour ajuster le stock correctement
+        $ancienneQuantite = $reservation->quantity;
+
+        // Calculer la nouvelle quantité totale
+        $nouvelleQuantite = $request->input('quantity');
+
+
+        Log::info("Ancienne quantité: $ancienneQuantite, Nouvelle quantité: $nouvelleQuantite, Stock avant ajustement: {$stock->quantity}");
+        // Ajuster la quantité du stock
+        $stock->quantity = $stock->quantity + $ancienneQuantite - $nouvelleQuantite;
+        $stock->update();
+
+        // Mettre à jour les informations de la réservation
+        $reservation->quantity = $nouvelleQuantite;
+        $reservation->total_price = $stock->price * $nouvelleQuantite;
+        $reservation->collection_id = $request->input('collection_id');
+        $reservation->save();
+
+        return redirect()->route('reservations.index')->with('success', 'La réservation a bien été mise à jour');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Reservation $reservation)
+    public function destroy(string $id)
     {
-        //
+
+        $reservation = Reservation::find($id);
+        $stock = Stock::find($reservation->stock_id);
+
+        // Ajuster la quantité du stock en ajoutant la quantité de la réservation supprimée
+        $stock->quantity += $reservation->quantity;
+        $stock->save();
+
+        // Supprimer la réservation
+        $reservation->delete();
+
+        return redirect()->route('reservations.index')->with('success', 'La réservation a bien été supprimée');
     }
 }

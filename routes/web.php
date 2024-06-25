@@ -11,7 +11,7 @@ use App\Models\Category;
 use App\Models\Reservation;
 
 Route::prefix('/')->name('welcome.')->controller(WelcomeController::class)->group(function () {
-    
+
     Route::get('/', 'index')->name('welcome');
 });
 
@@ -43,7 +43,7 @@ Route::prefix('category')->name('category.')->controller(CategoryController::cla
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
-Route::prefix('product')->name('product.')->controller(ProductController::class)->group(function () { 
+Route::prefix('product')->name('product.')->controller(ProductController::class)->group(function () {
 
     // Route::get('/', 'index')->name('index');
     // Route::get('/new', 'create')->name('create');
@@ -51,7 +51,7 @@ Route::prefix('product')->name('product.')->controller(ProductController::class)
     // Route::get('/{product}/edit', 'edit')->name('edit');
     // Route::post('/{product}/edit', 'update')->name('update');
     // Route::get('/{product}', 'show')->name('show');
-    Route::get('/{id}','search')->name('search');
+    Route::get('/{id}', 'search')->name('search');
 });
 
 Route::prefix('stocks')->name('stocks.')->controller(StockController::class)->group(function () {
@@ -62,15 +62,16 @@ Route::prefix('stocks')->name('stocks.')->controller(StockController::class)->gr
     // Route::get('/{product}/edit', 'edit')->name('edit');
     // Route::post('/{product}/edit', 'update')->name('update');
     // Route::get('/{product}', 'show')->name('show');
-    Route::get('/{id}','search')->name('search');
-}); 
+    Route::get('/{id}', 'search')->name('search');
+});
 
 Route::prefix('reservations')->name('reservations.')->controller(ReservationController::class)->group(function () {
 
     Route::get('/', 'index')->name('index');
     Route::get('/new/{id}', 'create')->name('create');
     Route::post('/new', 'store')->name('store');
-    // Route::get('/{product}/edit', 'edit')->name('edit');
-    // Route::post('/{product}/edit', 'update')->name('update');
+    Route::get('/{id}/edit', 'edit')->name('edit');
+    Route::PUT('/{id}/edit', 'update')->name('update');
     Route::get('/{id}', 'show')->name('show');
+    Route::delete('/{id}', 'destroy')->name('destroy');
 });
