@@ -1,27 +1,28 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\StockController;
-use App\Http\Controllers\WelcomeController;
-use App\Models\Category;
-use App\Models\Reservation;
+use Illuminate\Support\Facades\Route;
 
-Route::prefix('/')->name('welcome.')->controller(WelcomeController::class)->group(function () {
+Route::get('/', function () {
+    return view('welcome');
+});
 
-    Route::get('/', 'index')->name('welcome');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 
-// specifier si il va dans tel ou tel route
-Auth::routes();
+require __DIR__.'/auth.php';
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// Routes pour les catégories
 Route::prefix('category')->name('category.')->controller(CategoryController::class)->group(function () {
 
     Route::get('/', 'index')->name('index');
@@ -40,7 +41,7 @@ Route::prefix('category')->name('category.')->controller(CategoryController::cla
 
 
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+// Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
 Route::prefix('product')->name('product.')->controller(ProductController::class)->group(function () {
