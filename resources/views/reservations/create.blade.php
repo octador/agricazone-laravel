@@ -1,66 +1,91 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="d-flex justify-content-center mt-5">
-    <div class="card" style="width: 100%; max-width: 600px;">
-        <div class="card-header bg-primary text-white text-center">
-            <h1>Créer Réservation</h1>
-        </div>
-        <div class="card-body text-center">
-            <svg width="100" height="100" viewBox="0 0 16 16" class="bi bi-box-seam mb-4" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M8.5.134a1 1 0 0 0-1 0l-6 3.46A1 1 0 0 0 1 4.461V10.5a1 1 0 0 0 .5.866l6 3.46a1 1 0 0 0 1 0l6-3.46A1 1 0 0 0 15 10.5V4.46a1 1 0 0 0-.5-.866l-6-3.46zM2.5 5.13v4.74L8 13.548V8.807L2.5 5.13zM8 7.193l5.5 3.678V5.13L8 1.807v5.386zm1-.928l4.5-2.9L8 1.193 3.5 3.365 8 6.265z" />
-            </svg>
-            <form action="{{ route('reservations.store') }}" method="POST">
-                @csrf
-                <div>
-                    <h3>Produits : {{ $product->name }}</h3>
-                    <h3>Quantitées disponibles : {{ $stock->quantity }} kg</h3>
 
-                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                    <input type="hidden" name="status_id" value="3">
-                    <input type="hidden" name="stock_id" value="{{ $stock->id }}">
-                    <input type="hidden" name="price" value="{{ $stock->price }}">
+<div class="container mt-5">
+    <h1 class="mb-4">Créer une Réservation</h1>
 
-                    <div class="form-group">
-                        <label for="collection_id">Point de vente</label>
-                        <select name="collection_id" id="collection_id" class="form-control">
-                            @foreach($collection_ids as $collection_id)
-                            <option value="{{ $collection_id->id }}">{{ $collection_id->city }}</option>
+    <div class="row">
+        @foreach ($stocks as $stock)
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $stock->product->name }}</h5>
+                    <p class="card-text">Quantité: {{ $stock->quantity }} kg</p>
+                    <p class="card-text">Prix: {{ $stock->price }} €/kg ou €/litre</p>
+                    @foreach($users as $user)
+                    @if($user->id == $stock->user_id)
+                    <p class="card-text">Vendeur: {{ $user->name }} {{ $user->lastname }}</p>
+                    @endif
+                    @endforeach
+
+                    <form action="{{ route('reservations.store') }}" method="POST" class="reservation-form">
+                        @csrf
+                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                        <input type="hidden" name="stock_id" value="{{ $stock->id }}">
+                        <input type="hidden" name="total_price" id="hidden_total_price-{{ $stock->id }}">
+                        <input type="hidden" name="status_id" value="3">
+
+                        <div class="form-group">
+                            <label for="quantity">Quantité</label>
+                            <input type="number" id="quantity-{{ $stock->id }}" name="quantity" class="form-control quantity-input" data-price="{{ $stock->price }}" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="total_price">Prix total</label>
+                            <p class="card-text total-price" id="total_price-{{ $stock->id }}">0 €</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="collection_id">Point de vente</label>
+                            @foreach ($collections->where('user_id', $stock->user_id) as $collection)
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="collection_id" id="{{ $collection->id }}" value="{{ $collection->id }}">
+                                <label class="form-check-label" for="collection-{{ $collection->id }}">
+                                    {{ $collection->adress }} {{ $collection->city }} {{ $collection->postalcode }}
+                                </label>
+                            </div>
                             @endforeach
-                        </select>
-                    </div>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="quantity">Quantité</label>
-                        <input type="number" name="quantity" id="quantity" class="form-control" max="{{ $stock->quantity }}" min="1">
-                    </div>
-
-                    <p>Prix : {{ $stock->price }} €/kg</p>
-                    <p>Prix total : <span id="prixTotal"></span></p>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block">Créer une nouvelle réservation</button>
-                    </div>
+                        <button type="submit" class="btn btn-primary">Réserver</button>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
+        @endforeach
     </div>
 </div>
 
 <script>
-    document.getElementById('prixTotal').textContent = 0 + ' €';
-    // Écoute les événements d'entrée sur le champ "Quantité" pour met à jour le prix total en conséquence
-    document.getElementById('quantity').addEventListener('input', function() {
-        // Convertit la valeur saisie en entier
-        let quantity = parseInt(this.value);
+    // Fonction pour mettre à jour le prix total
+    function updateTotalPrice(event) {
+        let quantity = parseInt(event.target.value);
+        if (isNaN(quantity) || quantity < 1) {
+            quantity = 1;
+            event.target.value = 1;
+        }
 
-        // Récupère le prix du produit depuis l'input hidden
-        let price = parseFloat(document.querySelector('input[name="price"]').value);
-        // Calcule le prix total en multipliant la quantité par le prix
+        let price = parseFloat(event.target.dataset.price);
         let total = (quantity * price).toFixed(2);
-        // Affiche le prix total dans l'élément avec l'id "prixTotal"
-        document.getElementById('prixTotal').textContent = total
+
+        let stockId = event.target.id.split('-')[1];
+        document.getElementById('total_price-' + stockId).textContent = total + ' €';
+        document.getElementById('hidden_total_price-' + stockId).value = total; // Mettre à jour l'input caché
+    }
+
+    // Ajouter un écouteur d'événement sur tous les champs quantity-input
+    document.querySelectorAll('.quantity-input').forEach(input => {
+        input.addEventListener('input', updateTotalPrice);
+    });
+
+    // Calculer le prix total initial au chargement de la page
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.quantity-input').forEach(input => {
+            updateTotalPrice({
+                target: input
+            }); // Appel initial pour calculer le prix total au chargement
+        });
     });
 </script>
-
 
 @endsection

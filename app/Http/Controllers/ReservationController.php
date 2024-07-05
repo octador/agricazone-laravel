@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Reservation;
 use App\Models\Status;
 use App\Models\Stock;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Log;
 use NunoMaduro\Collision\Adapters\Phpunit\State;
@@ -31,23 +32,21 @@ class ReservationController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(string $stock_id)
+    public function create($id)
     {
-        $stock = Stock::find($stock_id);
-        $user_id = $stock->user_id;
+        // Récupérer l'objet Product correspondant à l'ID passé en paramètre
+        $product = Product::find($id);
 
-        $collection_id = Collection::where('user_id', $user_id)->get();
+        // Récupérer toutes les entrées de Stock dont le product_id correspond à l'ID du produit
+        $stocks = Stock::where('product_id', $product->id)->get();
 
-        $product_id = $stock->product_id;
-        $product = Product::find($product_id);
+        $usersId = $stocks->pluck('user_id')->unique()->toArray();
 
-        $reservation = new Reservation();
-        return view('reservations.create', [
-            'reservation' => $reservation,
-            'stock' => $stock,
-            'product' => $product,
-            'collection_ids' => $collection_id
-        ]);
+        $users = User::whereIn('id', $usersId)->get();
+        // Extraire les IDs des collections de tous les utilisateurs
+        $collections = Collection::whereIn('user_id', $usersId)->get();
+
+        return view('reservations.create', compact('product', 'stocks', 'collections', 'users'));
     }
 
     /**
@@ -56,35 +55,39 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
 
-
         $stock = Stock::findOrFail($request->stock_id);
-        // dd($stock);
-        $stock->update([
-            'quantity' => $stock->quantity - $request->quantity,
-        ]);
 
-        $price = $request->get('price');
-        $count = $price * $request->get('quantity');
-        $request->merge(['total_price' => $count]);
-
-        // dd($request->all());
+        // Validation des données
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
             'status_id' => 'required|exists:statuses,id',
             'stock_id' => 'required|exists:stocks,id',
             'quantity' => 'required|integer|min:1',
             'total_price' => 'required|numeric|min:1',
-            'collection_id' => 'required|exists:collection,id'
+            'collection_id' => 'required|exists:collections,id'
         ]);
-        // dd($validated);
+
+        // Mettre à jour la quantité du stock
+        if ($stock->quantity < $request->quantity) {
+            return redirect()->back()->with('error', 'Quantité insuffisante en stock.');
+        }
+
+        $stock->update([
+            'quantity' => $stock->quantity - $request->quantity,
+        ]);
+
+        // Calcul du prix total
+        $price = $stock->price;
+        $totalPrice = $price * $request->quantity;
+        $validated['total_price'] = $totalPrice;
 
         // Création de la réservation
         Reservation::create($validated);
 
-        // dd($validated);
-        // Redirection ou autre action après la création
-        return redirect()->route('reservations.index')->with('success', 'Votre réservation a bien été créée. Le montant total est de ' . $count . ' €');
+        // Redirection après la création
+        return redirect()->route('reservations.index')->with('success', 'Votre réservation a bien été créée. Le montant total est de ' . $totalPrice . ' €');
     }
+
 
 
     /**
@@ -167,5 +170,17 @@ class ReservationController extends Controller
         $reservation->delete();
 
         return redirect()->route('reservations.index')->with('success', 'La réservation a bien été supprimée');
+    }
+    // Recherche for farmer
+    public function search($id)
+    {
+        $user = User::find(auth()->user()->id);
+        // dd($user);  
+        $stocks = Stock::where('user_id', $user->id)->get();
+       
+        $reservations = Reservation::whereIn('stock_id', $stocks->pluck('id'))->get();
+        $custommers = User::whereIn('id', $reservations->pluck('user_id'))->get();
+        
+        return view('reservations.search', compact('reservations','custommers','stocks'));
     }
 }

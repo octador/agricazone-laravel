@@ -2,15 +2,17 @@
 
 @section('content')
 
-    <h1>Détails du Post</h1>
+    <div class="container">
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    
+                </div>
+                <div class="col-md-8">
+                
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <p><strong>nom :</strong> {{ $category->title }}</p>
-
-    {# <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-primary">Modifier</a> #}
-
-    <form action="{{ route('categories.destroy', $category->id) }}" method="POST">
-        @csrf
-        @method('DELETE')
-        <button type="submit">Supprimer</button>
-    </form>
 @endsection

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateCategoriesRequest;
 use App\Models\Category;
+use App\Models\Product;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -51,10 +53,17 @@ class CategoryController extends Controller
     // /**
     //  * Display the specified resource.
     //  */
-    // public function show(CategoryController $category)
-    // {
-    //     //
-    // }
+    public function show($id)
+    {
+        $category = Category::find($id);
+        $products = Product::where('category_id', $category->id)->get();
+        
+        $stocks = Stock::whereIn('product_id', $products->pluck('id'))->get();
+        
+        return view('category.show', [
+            'stocks' => $stocks,
+        ]);
+    }
 
     // /**
     //  * Show the form for editing the specified resource.

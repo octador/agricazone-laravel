@@ -11,11 +11,22 @@
                 </div>
 
                 <!-- Navigation Links -->
+                
+                @if(auth()->user()->role_id == 3)
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('reservations.index')" :active="request()->routeIs('dashboard')">
                         <img src="{{ asset('images/panier.svg') }}" alt="Panier" class="h-8 w-8">
                     </x-nav-link>
                 </div>
+                @endif
+                
+                @if(auth()->user()->role_id == 2)
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('reservations.search', auth()->user()->id)" :active="request()->routeIs('dashboard')">
+                        <img src="{{ asset('images/stock.svg') }}" alt="Panier" class="h-8 w-8">
+                    </x-nav-link>
+                </div>
+                @endif
             </div>
 
             <!-- Settings Dropdown -->
