@@ -4,12 +4,12 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <h1 class="display-4 text-center mb-4">Editer votre stock</h1>
+            <h1 class="display-4 text-center mb-4">Éditer votre stock</h1>
         </div>
     </div>
 
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-6 border rounded p-4">
             <form method="POST" action="{{ route('stocks.update', $stock->id) }}">
                 @csrf
                 @method('PUT')
@@ -34,12 +34,34 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="quantity">Quantité</label>
-                    <input type="number" class="form-control" id="quantity" name="quantity" value="{{ old('quantity', $stock->quantity) }}" required>
+                    <div class="d-flex gap-4">
+
+                        <label>Quantité : </label>
+                        <div class="d-flex gap-4">
+                            <div>
+                                <button type="button" class="btn btn-outline-secondary" onclick="changeQuantity(-1)">-</button>
+                            </div>
+                            <p id="quantityDisplay">{{ $stock->quantity }}</p>
+                            <input type="hidden" id="quantity" name="quantity" value="{{ $stock->quantity }}">
+                            <div>
+                                <button type="button" class="btn btn-outline-secondary" onclick="changeQuantity(1)">+</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="form-group">
-                    <label for="price">Prix</label>
-                    <input type="number" class="form-control" id="price" name="price" value="{{ old('price', $stock->price) }}" required>
+                    <div class=" d-flex gap-4">
+                        <label>Prix : </label>
+                        <div>
+                            <button type="button" class="btn btn-outline-secondary" onclick="changePrice(-0.01)">-</button>
+                        </div>
+                        <p id="priceDisplay">{{ $stock->price }}</p>
+                        <input type="hidden" id="price" name="price" value="{{ $stock->price }}">
+                        <div>
+                            <button type="button" class="btn btn-outline-secondary" onclick="changePrice(0.01)">+</button>
+                        </div>
+                    </div>
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-block mt-4">Enregistrer</button>
@@ -47,4 +69,29 @@
         </div>
     </div>
 </div>
+
+<script>
+    function changeQuantity(amount) {
+        var quantityInput = document.getElementById('quantity');
+        var quantityDisplay = document.getElementById('quantityDisplay');
+        var currentValue = parseInt(quantityInput.value);
+        var newValue = currentValue + amount;
+        if (newValue >= 0) {
+            quantityInput.value = newValue;
+            quantityDisplay.textContent = newValue;
+        }
+    }
+
+    function changePrice(amount) {
+        var priceInput = document.getElementById('price');
+        var priceDisplay = document.getElementById('priceDisplay');
+        var currentValue = parseFloat(priceInput.value);
+        var newValue = currentValue + amount;
+        if (newValue >= 0) {
+            priceInput.value = newValue.toFixed(2); // Limite à 2 décimales
+            priceDisplay.textContent = newValue.toFixed(2);
+        }
+    }
+</script>
+
 @endsection
