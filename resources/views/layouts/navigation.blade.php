@@ -11,7 +11,7 @@
                 </div>
 
                 <!-- Navigation Links -->
-                
+
                 @if(auth()->user()->role_id == 3)
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('reservations.index')" :active="request()->routeIs('dashboard')" class="text-white dark:text-white">
@@ -19,7 +19,7 @@
                     </x-nav-link>
                 </div>
                 @endif
-                
+
                 @if(auth()->user()->role_id == 2)
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('reservations.search', auth()->user()->id)" :active="request()->routeIs('dashboard')" class="text-white dark:text-white">
@@ -36,7 +36,7 @@
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white dark:text-white bg-white dark:bg-gray-800 hover:text-white dark:hover:text-white focus:outline-none transition ease-in-out duration-150">
 
                             <img src="{{ asset('images/profil.svg') }}" alt="User" class="h-8 w-8 rounded-full">
-                            
+
 
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -47,7 +47,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')" class="text-white dark:text-white">
+                        <x-dropdown-link :href="route('profile.edit')" class="text-36A793 hover:text-white dark:text-36A793 dark:hover:text-white">
                             {{ __('Profil') }}
                         </x-dropdown-link>
 
@@ -55,8 +55,7 @@
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
-                            <x-dropdown-link :href="route('logout')" class="text-white dark:text-white"
-                                    onclick="event.preventDefault();
+                            <x-dropdown-link :href="route('logout')" class="text-36A793 hover:text-white dark:text-36A793 dark:hover:text-white" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Déconnecter') }}
                             </x-dropdown-link>
@@ -85,13 +84,15 @@
             </x-responsive-nav-link>
         </div>
         <div>
+            @if(auth()->user()->role_id == 3)
             <x-responsive-nav-link :href="route('reservations.search', [auth()->user()->id])" :active="request()->routeIs('dashboard')" class="text-white dark:text-white">
                 {{ __('Mes reservations') }}
             </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+        <div class="pt-4 pb-1">
             <div class="px-4">
                 <div class="font-medium text-base text-white dark:text-white"> Compte : {{ Auth::user()->name }} {{ Auth::user()->lastname }}</div>
             </div>
@@ -105,8 +106,7 @@
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
-                    <x-responsive-nav-link :href="route('logout')" class="text-white dark:text-white"
-                            onclick="event.preventDefault();
+                    <x-responsive-nav-link :href="route('logout')" class="text-white dark:text-white" onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Déconnexion') }}
                     </x-responsive-nav-link>

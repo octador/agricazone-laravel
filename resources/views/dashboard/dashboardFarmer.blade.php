@@ -3,7 +3,7 @@
 @section('content')
 <div class="container mt-5">
 
-    <h1 class="text-center mb-5">Dashboard Agriculteur</h1>
+    <h1 class="text-center mb-5 fs-1">Dashboard Agriculteur</h1>
 
     @if($hasStock == false)
     <div class="alert alert-info text-center">
