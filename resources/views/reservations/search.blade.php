@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-5">
-    <h1 class="text-center mb-5">Mes Réservations</h1>
+    <h1 class="text-center mb-5 fs-1">Mes Réservations</h1>
     
     @if($reservations->isEmpty())
         <div class="alert alert-info text-center">

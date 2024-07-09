@@ -1,11 +1,11 @@
-<section class="flex justify-center items-center min-h-screen">
+<section class="flex justify-center items-center min-h-screen mb-8 ">
     <div class="bg-white dark:bg-gray-800 p-8 rounded shadow-md w-full max-w-lg">
         <header>
-            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+            <h2 class="text-lg font-medium text-customGreen-700 ">
                 {{ __('Informations sur le profil') }}
             </h2>
 
-            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+            <p class="mt-1 text-sm text-customGreen-500">
                 {{ __("Mettez à jour les informations de profil et l'adresse e-mail de votre compte.") }}
             </p>
         </header>
@@ -23,19 +23,19 @@
                 <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
                 <x-input-error class="mt-2" :messages="$errors->get('name')" />
             </div>
-            
+
             <div>
                 <x-input-label for="lastname" :value="__('Nom')" />
                 <x-text-input id="lastname" name="lastname" type="text" class="mt-1 block w-full" :value="old('lastname', $user->lastname)" required autofocus autocomplete="lastname" />
                 <x-input-error class="mt-2" :messages="$errors->get('lastname')" />
             </div>
-            
+
             <div>
                 <x-input-label for="address" :value="__('Address')" />
                 <x-text-input id="address" name="address" type="text" class="mt-1 block w-full" :value="old('address', $user->address)" required autofocus autocomplete="address" />
                 <x-input-error class="mt-2" :messages="$errors->get('address')" />
             </div>
-            
+
             <div>
                 <x-input-label for="city" :value="__('City')" />
                 <x-text-input id="city" name="city" type="text" class="mt-1 block w-full" :value="old('city', $user->city)" required autofocus autocomplete="city" />
@@ -46,7 +46,7 @@
                 <x-text-input id="postalcode" name="postalcode" type="text" class="mt-1 block w-full" :value="old('postalcode', $user->postalcode)" required autofocus autocomplete="postalcode" />
                 <x-input-error class="mt-2" :messages="$errors->get('postalcode')" />
             </div>
-            
+
             <div>
                 <x-input-label for="phone" :value="__('Phone')" />
                 <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full" :value="old('phone', $user->phone)" required autofocus autocomplete="phone" />
