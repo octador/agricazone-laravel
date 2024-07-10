@@ -14,7 +14,7 @@
         <h3 class="text-lg font-medium mb-2 text-center">{{ $category->name }}</h3>
         <div class=" d-flex justify-content-center">
 
-            <a href="{{ route('product.search', $category->id) }}" class="btn btn-primary  w-50">Voir les produits</a>
+            <a href="{{ route('product.search', $category->id) }}" class="btn bg-customGreen-500 text-white hover:bg-customGreen-600  w-50">Voir les produits</a>
         </div>
     </div>
     @endforeach

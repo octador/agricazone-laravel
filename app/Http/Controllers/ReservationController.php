@@ -18,16 +18,26 @@ class ReservationController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $user = auth()->user();
+{
+    $user = auth()->user();
 
-        $reservations = Reservation::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
-        // On récupère le statut de la réservation du utilisateur
-        $status_id = $reservations->pluck('status_id')->first();
-        $status_name = Status::find($status_id)?->state;
-        // recuperer le nom du produit
-        return view('reservations.index', compact('reservations', 'status_name'));
-    }
+    // Récupère les réservations de l'utilisateur et joint les tables stocks et products
+    $reservations = Reservation::where('reservations.user_id', $user->id)
+        ->join('stocks', 'reservations.stock_id', '=', 'stocks.id')
+        ->join('products', 'stocks.product_id', '=', 'products.id')
+        ->select('reservations.*', 'products.name as product_name')
+        ->orderBy('reservations.created_at', 'desc')
+        ->get();
+
+    // Récupère le statut de la première réservation de l'utilisateur
+    $status_id = $reservations->pluck('status_id')->first();
+    $status_name = Status::find($status_id)?->state;
+
+    return view('reservations.index', compact('reservations', 'status_name'));
+}
+
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -177,10 +187,10 @@ class ReservationController extends Controller
         $user = User::find(auth()->user()->id);
         // dd($user);  
         $stocks = Stock::where('user_id', $user->id)->get();
-       
+
         $reservations = Reservation::whereIn('stock_id', $stocks->pluck('id'))->get();
         $custommers = User::whereIn('id', $reservations->pluck('user_id'))->get();
-        
-        return view('reservations.search', compact('reservations','custommers','stocks'));
+
+        return view('reservations.search', compact('reservations', 'custommers', 'stocks'));
     }
 }
