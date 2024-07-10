@@ -67,7 +67,7 @@
     </header>
 
     <main class="mt-6">
-       
+
     </main>
 
     <footer class="fixed-bottom py-8 text-center text-sm text-black dark:text-gray-400 ">
