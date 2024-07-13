@@ -20,7 +20,6 @@ class ReservationController extends Controller
     public function index()
     {
         $user = auth()->user();
-
         // Récupère les réservations de l'utilisateur et joint les tables stocks et products
         $reservations = Reservation::where('reservations.user_id', $user->id)
             ->join('stocks', 'reservations.stock_id', '=', 'stocks.id')
@@ -35,10 +34,6 @@ class ReservationController extends Controller
 
         return view('reservations.index', compact('reservations', 'status_name'));
     }
-
-
-
-
     /**
      * Show the form for creating a new resource.
      */
@@ -58,7 +53,6 @@ class ReservationController extends Controller
 
         return view('reservations.create', compact('product', 'stocks', 'collections', 'users'));
     }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -98,9 +92,6 @@ class ReservationController extends Controller
         // Redirection après la création
         return redirect()->route('reservations.index')->with('success', 'Votre réservation a bien été créée. Le montant total est de ' . $totalPrice . ' €');
     }
-
-
-
     /**
      * Display the specified resource.
      */
@@ -136,10 +127,6 @@ class ReservationController extends Controller
      */
     public function update(string $id, Request $request)
     {
-
-
-
-
         // return redirect()->route('reservations.index')->with('success', 'La reservation a bien été mise à jour');
         $reservation = Reservation::find($id);
         $stock = Stock::find($reservation->stock_id);
@@ -180,7 +167,7 @@ class ReservationController extends Controller
         // Supprimer la réservation
         $reservation->delete();
 
-        return redirect()->route('reservations.index')->with('success', 'La réservation a bien été supprimée');
+        return redirect()->route('reservations.search', ['id' => auth()->user()->id])->with('success', 'La réservation a bien été supprimée');
     }
     // Recherche for farmer
     public function search($id)

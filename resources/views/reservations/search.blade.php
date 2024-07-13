@@ -101,7 +101,6 @@
                         <p class="card-text"><strong>Dernière Mise à Jour:</strong> {{ \Carbon\Carbon::parse($reservation->updated_at)->format('d/m/Y H:i:s') }}</p>
                         <div class="d-flex flex-column gap-2">
                             <a href="{{ route('reservations.show', $reservation->id) }}" class="btn btn-primary btn-sm mb-1">Voir</a>
-                            <a href="{{ route('reservations.edit', $reservation->id) }}" class="btn btn-warning btn-sm mb-1">Modifier</a>
                             <div class ="d-flex justify-content-center">
                                 <form action="{{ route('reservations.destroy', $reservation->id) }}" method="POST" class="d-inline">
                                     @csrf
