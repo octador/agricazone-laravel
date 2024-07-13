@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Collection;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CollectionController extends Controller
@@ -12,7 +13,10 @@ class CollectionController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::find(auth()->user()->id);
+        $collections = Collection::where('user_id', $user->id)->paginate(5);
+
+        return view('collections.index', compact('collections'));
     }
 
     /**
@@ -20,7 +24,7 @@ class CollectionController extends Controller
      */
     public function create()
     {
-        //
+        return view('collections.create');
     }
 
     /**
@@ -28,7 +32,18 @@ class CollectionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      
+       $validate =  $request->validate([
+            'description' => 'nullable|string',
+            'user_id' => 'required|exists:users,id',
+            'adress' => 'required|string|max:255',
+            'postalcode' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+        ]); 
+        // dd($validate);
+        Collection::create($validate);
+
+        return redirect()->route('collections.index')->with('success', 'Collection created successfully.');
     }
 
     /**
@@ -36,7 +51,7 @@ class CollectionController extends Controller
      */
     public function show(Collection $collection)
     {
-        //
+        return view('collections.show', compact('collection'));
     }
 
     /**
@@ -44,7 +59,7 @@ class CollectionController extends Controller
      */
     public function edit(Collection $collection)
     {
-        //
+        return view('collections.edit', compact('collection'));
     }
 
     /**
@@ -52,7 +67,14 @@ class CollectionController extends Controller
      */
     public function update(Request $request, Collection $collection)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        $collection->update($request->all());
+
+        return redirect()->route('collections.index')->with('success', 'Collection updated successfully.');
     }
 
     /**
@@ -60,6 +82,8 @@ class CollectionController extends Controller
      */
     public function destroy(Collection $collection)
     {
-        //
+        $collection->delete();
+
+        return redirect()->route('collections.index')->with('success', 'Collection deleted successfully.');
     }
 }

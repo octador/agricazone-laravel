@@ -56,7 +56,6 @@
                             <td class="text-wrap">
                                 <div class="d-flex flex-column gap-2">
                                     <a href="{{ route('reservations.show', $reservation->id) }}" class="btn btn-primary btn-sm mb-1 w-100">Voir</a>
-                                    <a href="{{ route('reservations.edit', $reservation->id) }}" class="btn btn-warning btn-sm mb-1 w-100">Modifier</a>
                                     <form action="{{ route('reservations.destroy', $reservation->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')

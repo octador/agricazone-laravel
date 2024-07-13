@@ -15,7 +15,7 @@ class RedirectIfNotCustomerOrFarmer
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request)
     {
         // Redirection en fonction du role_id si l'utilisateur n'a pas de rôle
         if (!$request->user()) {

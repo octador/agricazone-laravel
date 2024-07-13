@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\ReservationController;
@@ -54,6 +55,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/{id}', [StockController::class, 'search'])->name('search');
     });
 
+    Route::prefix('collections')->name('collections.')->group(function () {
+        Route::get('/', [CollectionController::class, 'index'])->name('index');
+        Route::get('/new', [CollectionController::class, 'create'])->name('create');
+        Route::post('/new', [CollectionController::class, 'store'])->name('store');
+        Route::get('/{collection}', [CollectionController::class, 'show'])->name('show'); // Ajout de la route show
+        Route::get('/{collection}/edit', [CollectionController::class, 'edit'])->name('edit');
+        Route::put('/{collection}/edit', [CollectionController::class, 'update'])->name('update');
+        Route::delete('/{collection}', [CollectionController::class, 'destroy'])->name('destroy');
+    });
+    
+
     Route::prefix('reservations')->name('reservations.')->group(function () {
         Route::get('/', [ReservationController::class, 'index'])->name('index');
         Route::get('/new/{id}', [ReservationController::class, 'create'])->name('create');
@@ -67,6 +79,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('status')->name('status.')->group(function () {
         Route::get('/{id}', [StatusController::class, 'update'])->name('update');
     });
+
 });
 
 

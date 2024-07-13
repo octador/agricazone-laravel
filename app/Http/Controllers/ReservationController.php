@@ -18,23 +18,23 @@ class ReservationController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-{
-    $user = auth()->user();
+    {
+        $user = auth()->user();
 
-    // Récupère les réservations de l'utilisateur et joint les tables stocks et products
-    $reservations = Reservation::where('reservations.user_id', $user->id)
-        ->join('stocks', 'reservations.stock_id', '=', 'stocks.id')
-        ->join('products', 'stocks.product_id', '=', 'products.id')
-        ->select('reservations.*', 'products.name as product_name')
-        ->orderBy('reservations.created_at', 'desc')
-        ->get();
+        // Récupère les réservations de l'utilisateur et joint les tables stocks et products
+        $reservations = Reservation::where('reservations.user_id', $user->id)
+            ->join('stocks', 'reservations.stock_id', '=', 'stocks.id')
+            ->join('products', 'stocks.product_id', '=', 'products.id')
+            ->select('reservations.*', 'products.name as product_name')
+            ->orderBy('reservations.created_at', 'desc')
+            ->get();
 
-    // Récupère le statut de la première réservation de l'utilisateur
-    $status_id = $reservations->pluck('status_id')->first();
-    $status_name = Status::find($status_id)?->state;
+        // Récupère le statut de la première réservation de l'utilisateur
+        $status_id = $reservations->pluck('status_id')->first();
+        $status_name = Status::find($status_id)?->state;
 
-    return view('reservations.index', compact('reservations', 'status_name'));
-}
+        return view('reservations.index', compact('reservations', 'status_name'));
+    }
 
 
 
@@ -65,18 +65,19 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
 
-        $stock = Stock::findOrFail($request->stock_id);
 
+        $stock = Stock::findOrFail($request->stock_id);
+        // dd($request->all());
         // Validation des données
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
             'status_id' => 'required|exists:statuses,id',
             'stock_id' => 'required|exists:stocks,id',
             'quantity' => 'required|integer|min:1',
-            'total_price' => 'required|numeric|min:1',
+            'total_price' => 'required|numeric',
             'collection_id' => 'required|exists:collections,id'
         ]);
-
+        // dd($validated);
         // Mettre à jour la quantité du stock
         if ($stock->quantity < $request->quantity) {
             return redirect()->back()->with('error', 'Quantité insuffisante en stock.');

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Blade;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Paginator::useBootstrapFive();
         Blade::component('components.auth-validation-errors', 'auth-validation-errors');
         Blade::component('components.auth-card', 'auth-card');
         Blade::component('components.label', 'label');

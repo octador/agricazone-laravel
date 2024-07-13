@@ -3,11 +3,15 @@
 @section('content')
 
 <div class="container mt-5">
-    <h1 class="mb-4">Créer une Réservation</h1>
-
-    <div class="row">
+    <div class="card border-customGreen-500" ">
+        <div class=" card-header bg-customGreen-500 text-white text-center fs-1">
+        <h1>Créer une reservation</h1>
+    </div>
+    <div class="row p-3">
         @foreach ($stocks as $stock)
-        <div class="col-md-4 mb-4">
+        <!--afficher uniquement les stocks qui ont une quantité > 0 -->
+        @if ($stock->quantity > 0)
+        <div class="col-md-4 mb-3 mt-3 ">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">{{ $stock->product->name }}</h5>
@@ -28,7 +32,7 @@
 
                         <div class="form-group">
                             <label for="quantity">Quantité</label>
-                            <input type="number" id="quantity-{{ $stock->id }}" name="quantity" class="form-control quantity-input" data-price="{{ $stock->price }}" min="1" required>
+                            <input type="number" id="quantity-{{ $stock->id }}" name="quantity" class="form-control quantity-input" data-price="{{ $stock->price }}" min="1" max="{{ $stock->quantity }}" required>
                         </div>
                         <div class="form-group">
                             <label for="total_price">Prix total</label>
@@ -37,23 +41,24 @@
 
                         <div class="form-group">
                             <label for="collection_id">Point de vente</label>
-                            @foreach ($collections->where('user_id', $stock->user_id) as $collection)
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="collection_id" id="{{ $collection->id }}" value="{{ $collection->id }}">
-                                <label class="form-check-label" for="collection-{{ $collection->id }}">
+                            <select name="collection_id" id="collection_id" class="form-control">
+                                @foreach ($collections->where('user_id', $stock->user_id) as $collection)
+                                <option value="{{ $collection->id }}">
                                     {{ $collection->adress }} {{ $collection->city }} {{ $collection->postalcode }}
-                                </label>
-                            </div>
-                            @endforeach
+                                </option>
+                                @endforeach
+                            </select>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Réserver</button>
+                        <button type="submit" class="btnCustom mt-3">Réserver</button>
                     </form>
                 </div>
             </div>
         </div>
+        @endif
         @endforeach
     </div>
+</div>
 </div>
 
 <script>

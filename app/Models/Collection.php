@@ -9,7 +9,7 @@ class Collection extends Model
 {
     use HasFactory;
     protected $table = 'collections';
-    protected $fillable = ['id', 'description', 'adress', 'postalcode', 'city'];
+    protected $fillable = ['id', 'description', 'adress', 'postalcode', 'city', 'user_id'];
     public function user()
     {
         return $this->belongsTo(User::class);

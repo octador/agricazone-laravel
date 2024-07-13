@@ -33,5 +33,35 @@ export default {
         },
     },
 
-    plugins: [forms],
+    plugins: [
+        forms,
+        function ({ addComponents }) {
+            addComponents({
+                '.btnCustom': {
+                    backgroundColor: '#36A793',
+                    padding: '10px',
+                    borderRadius: '15px',
+                    color: '#fff',
+                    display: 'inline-block',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    '&:hover': {
+                        backgroundColor: '#2A8373',
+                    },
+                },
+                '.btnCustomRed': {
+                    backgroundColor: '#EB5757',
+                    padding: '10px',
+                    borderRadius: '15px',
+                    color: '#fff',
+                    display: 'inline-block',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    '&:hover': {
+                        backgroundColor: '#D32F2F',
+                    },
+                },
+            });
+        },
+    ],
 };

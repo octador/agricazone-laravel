@@ -1,71 +1,62 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <h1 class="display-4 text-center mb-4">Éditer votre stock</h1>
-        </div>
-    </div>
-
+<div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-6 border rounded p-4">
-            <form method="POST" action="{{ route('stocks.update', $stock->id) }}">
-                @csrf
-                @method('PUT')
-
-                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                <input type="hidden" name="is_available" value="{{ $stock->is_available }}">
-
-                <div class="form-group">
-                    <label for="product_id">Produit</label>
-                    <select name="product_id" id="product_id" class="form-control">
-                        @foreach($products as $product)
-                        <option value="{{ $product->id }}" {{ $product->id == $stock->product_id ? 'selected' : '' }}>
-                            {{ $product->name }}
-                        </option>
-                        @endforeach
-                    </select>
+        <div class="col-md-8 ">
+            <div class="card shadow border-customGreen-500">
+                <div class="card-header bg-customGreen-500 text-white text-center">
+                    <h1 class="card-title fs-1">Éditer votre stock</h1>
                 </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ route('stocks.update', $stock->id) }}">
+                        @csrf
+                        @method('PUT')
 
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <input type="text" class="form-control" id="description" name="description" value="{{ old('description', $stock->description) }}" required>
-                </div>
+                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                        <input type="hidden" name="is_available" value="{{ $stock->is_available }}">
 
-                <div class="form-group">
-                    <div class="d-flex gap-4">
+                        <div class="form-group mb-3">
+                            <label for="product_id" class="form-label text-customGreen-500">Produit :</label>
+                            <select name="product_id" id="product_id" class="form-control text-customGreen-500 border-customGreen-500 rounded-3xl">
+                                @foreach($products as $product)
+                                <option value="{{ $product->id }}" {{ $product->id == $stock->product_id ? 'selected' : '' }}>
+                                    {{ $product->name }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                        <label>Quantité : </label>
-                        <div class="d-flex gap-4">
-                            <div>
-                                <button type="button" class="btn btn-outline-secondary" onclick="changeQuantity(-1)">-</button>
+                        <div class="form-group mb-3">
+                            <label for="description" class="form-label text-customGreen-500 text-customGreen-500">Description :</label>
+                            <input type="text" class="form-control text-customGreen-500 border-customGreen-500 rounded-3xl " id="description" name="description" value="{{ old('description', $stock->description) }}" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label text-customGreen-500">Quantité :</label>
+                            <div class="d-flex align-items-center text-customGreen-500">
+                                <button type="button" class="btnCustom rounded shadow " onclick="changeQuantity(-1)">-</button>
+                                <input type="hidden" id="quantity" name="quantity" value="{{ $stock->quantity }}">
+                                <span id="quantityDisplay" class="mx-3">{{ $stock->quantity }}</span>
+                                <button type="button" class="btnCustom rounded shadowy" onclick="changeQuantity(1)">+</button>
                             </div>
-                            <p id="quantityDisplay">{{ $stock->quantity }}</p>
-                            <input type="hidden" id="quantity" name="quantity" value="{{ $stock->quantity }}">
-                            <div>
-                                <button type="button" class="btn btn-outline-secondary" onclick="changeQuantity(1)">+</button>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label text-customGreen-500">Prix (€) :</label>
+                            <div class="d-flex align-items-center">
+                                <button type="button" class="btnCustom rounded shadow" onclick="changePrice(-0.01)">-</button>
+                                <input type="hidden" id="price" name="price" value="{{ $stock->price }}">
+                                <span id="priceDisplay" class="mx-3 text-customGreen-500">{{ $stock->price }}</span>
+                                <button type="button" class="btnCustom rounded shadow" onclick="changePrice(0.01)">+</button>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class=" d-flex gap-4">
-                        <label>Prix : </label>
-                        <div>
-                            <button type="button" class="btn btn-outline-secondary" onclick="changePrice(-0.01)">-</button>
+                        <div class="flex justify-content-center ">
+                            <button type="submit" class="btnCustom shadow">Enregistrer</button>
                         </div>
-                        <p id="priceDisplay">{{ $stock->price }}</p>
-                        <input type="hidden" id="price" name="price" value="{{ $stock->price }}">
-                        <div>
-                            <button type="button" class="btn btn-outline-secondary" onclick="changePrice(0.01)">+</button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
-
-                <button type="submit" class="btn btn-primary btn-block mt-4">Enregistrer</button>
-            </form>
+            </div>
         </div>
     </div>
 </div>
@@ -93,5 +84,4 @@
         }
     }
 </script>
-
 @endsection

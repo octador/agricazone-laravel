@@ -44,8 +44,15 @@
 
             <div class="d-flex justify-content-center gap-3">
 
+                @if (auth()->user()->role_id == 3)
                 <a href="{{ route('reservations.edit', $reservation->id) }}" class="btn bg-customGreen-500 text-white hover:bg-customGreen-600 mt-3 shadow">Modifier la Réservation <i class="fas fa-edit"></i></a>
+                @endif
+
+                @if (auth()->user()->role_id == 2)
+                <a href="{{route('reservations.search', $reservation->id) }}">retour</a>
+                @else
                 <a href="{{ route('reservations.index') }}" class="btn bg-customGreen-500 text-white hover:bg-customGreen-600 mt-3 shadow">Retour à la liste des réservations</a>
+                @endif
             </div>
         </div>
     </div>

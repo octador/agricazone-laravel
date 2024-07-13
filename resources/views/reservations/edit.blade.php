@@ -48,13 +48,13 @@
                     </select>
                 </div>
 
-                <button type="submit" class="btn bg-customGreen-500 text-white hover:bg-customGreen-600 mt-4">Enregistrer les modifications</button>
+                <button type="submit" class="btnCustom">Enregistrer les modifications</button>
             </form>
 
             <form action="{{ route('reservations.destroy', $reservation->id) }}" method="POST" class="mt-3">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn bg-red-500 text-white hover:bg-red-600">Supprimer la réservation</button>
+                <button type="submit" class="btnCustomRed">Supprimer la réservation</button>
             </form>
         </div>
     </div>
