@@ -61,6 +61,18 @@ export default {
                         backgroundColor: '#D32F2F',
                     },
                 },
+                '.btnCustomBlue': {
+                    backgroundColor: '#3d85c6',
+                    padding: '10px',
+                    borderRadius: '15px',
+                    color: '#fff',
+                    display: 'inline-block',
+                    textAlign: 'center',
+                    textDecoration: 'none',
+                    '&:hover': {
+                        backgroundColor: '#2A8373',
+                    },
+                },
             });
         },
     ],
