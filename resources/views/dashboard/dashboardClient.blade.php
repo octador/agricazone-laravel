@@ -7,7 +7,7 @@
             <h1>Dashboard client</h1>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-5 flex-wrap p-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-3 flex-wrap p-4">
             @foreach($categories as $category)
             <div class="bg-white rounded-lg shadow p-4 flex flex-col">
                 <img src="https://via.placeholder.com/150x100?text={{ $category->name }}" alt="{{ $category->name }} placeholder" class="w-full h-40 object-cover rounded-t-lg mb-2" />
@@ -20,10 +20,10 @@
         </div>
 
         <div class="d-flex justify-content-end p-3">
-        @if ($categories->hasPages())
-                {{ $categories->links() }}
+            @if ($categories->hasPages())
+            {{ $categories->links() }}
             @else
-                <p class="text-center">Tous les éléments sont affichés</p>
+            <p class="text-center">Tous les categories sont affichés</p>
             @endif
         </div>
     </div>

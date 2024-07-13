@@ -43,7 +43,7 @@ class ReservationController extends Controller
         $product = Product::find($id);
 
         // Récupérer toutes les entrées de Stock dont le product_id correspond à l'ID du produit
-        $stocks = Stock::where('product_id', $product->id)->get();
+        $stocks = Stock::where('product_id', $product->id)->paginate(6);
 
         $usersId = $stocks->pluck('user_id')->unique()->toArray();
 

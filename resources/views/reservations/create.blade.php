@@ -58,6 +58,14 @@
         @endif
         @endforeach
     </div>
+
+    <div class="d-flex justify-content-end p-3">
+        @if ($stocks->hasPages())
+        {{ $stocks->links() }}
+        @else
+        <p class="text-center">Tous les stocks sont affichés</p>
+        @endif
+    </div>
 </div>
 </div>
 
