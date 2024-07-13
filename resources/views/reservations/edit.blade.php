@@ -7,6 +7,8 @@
             <h1>Modifier Réservation</h1>
         </div>
         <div class="card-body">
+
+
             <form action="{{ route('reservations.update', $reservation->id) }}" method="POST">
                 @csrf
                 @method('PUT')
@@ -16,15 +18,15 @@
                     <input type="text" id="product" class="form-control border-customGreen-500 rounded-3xl text-center w-25" value="{{ $product->name }}" readonly>
                 </div>
 
-                <div class="form-group fs-5 mb-3 d-flex align-items-center ">
+                <div class="form-group fs-5 mb-3 d-flex align-items-center justify-content-between ">
                     <label for="quantity" class="me-3">Quantité</label>
-                    <div class="input-group w-">
+                    <div class="input-group w-25">
                         <div class="input-group-prepend">
-                            <button type="button" id="decrementQuantity" class="btn bg-customGreen-500 text-white hover:bg-customGreen-600">-</button>
+                            <button type="button" id="decrementQuantity" class="btnCustom px-3">-</button>
                         </div>
-                        <input type="number" id="quantity" name="quantity" class="form-control border-customGreen-500 text-center " value="{{ $reservation->quantity }}" min="1" required>
+                        <input type="number" id="quantity" name="quantity" class="form-control border-none text-center" value="{{ $reservation->quantity }}" min="1" required>
                         <div class="input-group-append">
-                            <button type="button" id="incrementQuantity" class="btn bg-customGreen-500 text-white hover:bg-customGreen-600">+</button>
+                            <button type="button" id="incrementQuantity" class="btnCustom px-3">+</button>
                         </div>
                     </div>
                 </div>
@@ -47,7 +49,6 @@
                         @endforeach
                     </select>
                 </div>
-
                 <button type="submit" class="btnCustom">Enregistrer les modifications</button>
             </form>
 
@@ -55,6 +56,7 @@
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btnCustomRed">Supprimer la réservation</button>
+
             </form>
         </div>
     </div>
