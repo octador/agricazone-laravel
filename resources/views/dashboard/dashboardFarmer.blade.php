@@ -82,7 +82,11 @@
             </div>
             <!-- Liens de pagination -->
             <div class="d-flex justify-content-center">
+                @if ($stock->hasPages())
                 {{ $stock->links() }}
+                @else
+                <p class="text-center">Tous les éléments sont affichés</p>
+                @endif
             </div>
         </div>
         @endif

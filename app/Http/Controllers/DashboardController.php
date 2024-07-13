@@ -13,10 +13,11 @@ class DashboardController extends Controller
     public function dashboardClient()
     {
         $user = auth()->user()->id;
-        $categories = Category::all();
+        $categories = Category::paginate(10); // Paginer par 10 éléments
 
         return view('dashboard.dashboardClient', compact('user', 'categories'));
     }
+
 
     public function dashboardFarmer()
     {

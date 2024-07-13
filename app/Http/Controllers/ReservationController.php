@@ -166,7 +166,9 @@ class ReservationController extends Controller
 
         // Supprimer la réservation
         $reservation->delete();
-
+        if (auth()->user()->role_id == 3) {
+            return redirect()->route('reservations.index')->with('success', 'La réservation a bien été supprimée');
+        }
         return redirect()->route('reservations.search', ['id' => auth()->user()->id])->with('success', 'La réservation a bien été supprimée');
     }
     // Recherche for farmer

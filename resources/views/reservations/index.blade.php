@@ -16,11 +16,16 @@
             </div>
 
 
+            @if($reservations->isEmpty())
+            <h1 class="text-center">Aucune réservation</h1>
+            @endif
+
             <ul class="list-unstyled">
                 @foreach ($reservations as $reservation)
+
                 <div class="card-body flex-column border border-customGreen-500 p-3 mb-3 rounded shadow">
                     <li>numero de reservation : {{$reservation->id}}</li>
-                    
+
                     <li>Nom du produit : {{$reservation->product_name}}</li>
 
                     <li>Quantitée : {{ $reservation->quantity }} kg</li>
@@ -34,7 +39,11 @@
                         <span class="badge bg-danger">Annulé</span>
                         @endif
                     </li>
-                    <a href="{{ route('reservations.show', $reservation->id) }}" class="btn bg-customGreen-500 text-white hover:bg-customGreen-600 mt-3 shadow">Détails</a>
+                    <div class="d-flex justify-content-center gap-3 mt-3">
+
+                        <a href="{{ route('reservations.show', $reservation->id) }}" class="btnCustom  shadow">Détails</a>
+                        <a href="{{ route('dashboardClient') }}" class="btnCustomBlue text-white  shadow">Retour dashboard</a>
+                    </div>
                 </div>
                 @endforeach
             </ul>
