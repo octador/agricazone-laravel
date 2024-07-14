@@ -70,7 +70,7 @@ export default {
                     textAlign: 'center',
                     textDecoration: 'none',
                     '&:hover': {
-                        backgroundColor: '#2A8373',
+                        backgroundColor: '#306a9e',
                     },
                 },
             });
