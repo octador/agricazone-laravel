@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-5">
-    <div class="card border-customGreen-500 shadow">
+
+<div class="container d-flex justify-content-center mt-5 ">
+    <div class="card border-customGreen-500 shadow " style="width: 100%; max-width: 600px;">
         <div class="card-header bg-customGreen-500 text-white text-center fs-1">
             <h1>Détails de la Réservation</h1>
         </div>
@@ -19,24 +20,15 @@
 
                     <p>Description des lieux: {{ $collection->description ?? 'Pas de description des lieux' }}</p>
 
-                    @php
-                    $statusText = '';
-                    switch ($reservation->status_id) {
-                    case 1:
-                    $statusText = 'Annulée';
-                    break;
-                    case 2:
-                    $statusText = 'Acceptée';
-                    break;
-                    case 3:
-                    $statusText = 'En attente';
-                    break;
-                    default:
-                    $statusText = 'Statut inconnu';
-                    break;
-                    }
-                    @endphp
-                    <p>Status: {{ $statusText }}</p>
+                    <p> status:
+                        @if($status->state == "pending")
+                        <span class="badge bg-secondary text-dark text-white">En cours</span>
+                        @elseif($status->state == "validate")
+                        <span class="badge bg-customGreen-500 text-white">Validé</span>
+                        @elseif($status->state == "cancel")
+                        <span class="badge bg-danger text-white">Annulé</span>
+                        @endif
+                    </p>
                     <p>Date de création: {{ \Carbon\Carbon::parse($reservation->created_at)->format('d/m/Y H:i:s') }}</p>
                     <p>Dernière mise à jour: {{ \Carbon\Carbon::parse($reservation->updated_at)->format('d/m/Y H:i:s') }}</p>
                 </div>
