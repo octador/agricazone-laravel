@@ -178,7 +178,7 @@ class ReservationController extends Controller
         // dd($user);  
         $stocks = Stock::where('user_id', $user->id)->get();
 
-        $reservations = Reservation::whereIn('stock_id', $stocks->pluck('id'))->get();
+        $reservations = Reservation::whereIn('stock_id', $stocks->pluck('id'))->paginate(10);
         $custommers = User::whereIn('id', $reservations->pluck('user_id'))->get();
 
         return view('reservations.search', compact('reservations', 'custommers', 'stocks'));

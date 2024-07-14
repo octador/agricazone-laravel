@@ -117,6 +117,15 @@
             @endforeach
         </div>
         @endif
+        <div class="d-flex justify-content-end mt-3 p-3">
+            @if ($reservations->hasPages())
+            <p>
+                {{ $reservations->links() }}
+            </p>
+            @else
+            <p class="fs-5">Nombre de réservations: {{ $reservations->count() }}</p>
+            @endif
+        </div>
     </div>
 </div>
 
