@@ -3,7 +3,7 @@
 @section('title', 'Index')
 
 @section('content')
-<div class="d-flex justify-content-center mt-5">
+<div class="d-flex justify-content-center mt-5 mb-5">
     <div class="card" style="width: 100%; max-width: 600px;">
         <div class="card-header bg-customGreen-500 text-white text-center fs-1">
             <h1>Réservations</h1>
@@ -23,7 +23,7 @@
             <ul class="list-unstyled">
                 @foreach ($reservations as $reservation)
 
-                <div class="card-body flex-column border border-customGreen-500 p-3 mb-3 rounded shadow">
+                <div class="card-body flex-column border-2 border-customGreen-500 p-3 mb-3 rounded shadow">
                     <li>numero de reservation : {{$reservation->id}}</li>
 
                     <li>Nom du produit : {{$reservation->product_name}}</li>
@@ -47,6 +47,13 @@
                 </div>
                 @endforeach
             </ul>
+        </div>
+        <div class="d-flex justify-content-end p-3 ">
+            @if ($reservations->hasPages())
+            {{ $reservations->links() }}
+            @else
+            <p class="text-center">Toutes les reservations sont affichées</p>
+            @endif
         </div>
     </div>
 </div>

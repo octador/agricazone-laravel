@@ -26,7 +26,7 @@ class ReservationController extends Controller
             ->join('products', 'stocks.product_id', '=', 'products.id')
             ->select('reservations.*', 'products.name as product_name')
             ->orderBy('reservations.created_at', 'desc')
-            ->get();
+            ->paginate(10);
 
         // Récupère le statut de la première réservation de l'utilisateur
         $status_id = $reservations->pluck('status_id')->first();
