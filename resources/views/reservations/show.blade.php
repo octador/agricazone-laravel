@@ -41,7 +41,7 @@
                 @endif
 
                 @if (auth()->user()->role_id == 2)
-                <a href="{{route('reservations.search', $reservation->id) }}">retour</a>
+                <a href="{{route('reservations.search', $reservation->id) }}" class="btnCustomBlue text-white mt-3 shadow">Retour</a>
                 @else
                 <a href="{{ route('reservations.index') }}" class="btnCustomBlue text-white mt-3 shadow">Retour à la liste des réservations</a>
                 @endif
