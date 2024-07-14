@@ -35,7 +35,7 @@
                             <td>{{ $collection->city }}</td>
                             <td>
 
-                    
+
                                 <div class="d-flex flex-column flex-md-row gap-2">
                                     <a href="{{ route('collections.show', $collection->id) }}" class="btnCustom">Détail</a>
                                     <a href="{{ route('collections.edit', $collection->id) }}" class="btnCustomBlue">Modifier</a>
@@ -81,7 +81,14 @@
             </div>
 
             <div class="d-flex justify-content-end mt-3 mb-3">
-                {{ $collections->links() }}
+                @if ($collections->hasPages())
+                <p>
+                    {{ $collections->links() }}
+                </p>
+                @else
+                <p class="fs-5 mt-3 mb-3">Nombre de points de collecte: {{ $collections->count() }}</p>
+                @endif
+
             </div>
         </div>
 
