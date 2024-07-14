@@ -71,18 +71,18 @@
             <section class="jumbotron">
                 <div class="container">
                     <h1 class="display-4 ">Bienvenue sur Agricazone</h1>
-                    <p class="lead ">Votre plateforme pour réserver des produits agricoles locaux et avec une gestion des stocks pour les agriculteurs.</p>
+                    <p class="lead shadow">Votre plateforme pour réserver des produits agricoles locaux et avec une gestion des stocks pour les agriculteurs.</p>
                 </div>
             </section>
 
             <section class="section">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6">
+                <div class="container mt-5">
+                    <div class=" d-flex row justify-content-center gap-4">
+                        <div class="col-md-5 card-item">
                             <h2>Réservez des Produits Agricoles Locaux</h2>
                             <p>Commandez des produits frais et locaux directement auprès de nos agriculteurs partenaires. Découvrez une variété de produits de saison et des points de collectes près de chez vous.</p>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-5 card-item">
                             <h2>Gestion de Stock pour Agriculteurs</h2>
                             <p>Gérez efficacement votre stock avec notre outil intuitif. Suivez vos stocks, gérez les commandes et vos points de collectes pour optimiser votre activité agricole.</p>
                         </div>
@@ -93,7 +93,8 @@
 
         <footer class="footer text-center">
             <div class="container-fluid">
-                <p class="mb-0">&copy; 2024 Agricazone. Tous droits réservés.</p>
+                <p class="mb-0">&copy; 2024 Agricazone. Tous droits réservés.
+                </p>
             </div>
         </footer>
 
