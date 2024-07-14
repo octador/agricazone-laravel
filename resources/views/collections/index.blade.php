@@ -20,6 +20,7 @@
                         <th scope="col">Adress</th>
                         <th scope="col">Code postal</th>
                         <th scope="col">Ville</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +32,7 @@
                         <td>{{ $collection->adress }}</td>
                         <td>{{ $collection->postalcode }}</td>
                         <td>{{ $collection->city }}</td>
+                        <td><a href="{{ route('collections.show', $collection->id) }}" class="btn btn-primary">Détail</a>
                     </tr>
                     @endforeach
                 </tbody>

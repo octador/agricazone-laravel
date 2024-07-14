@@ -32,14 +32,14 @@ class CollectionController extends Controller
      */
     public function store(Request $request)
     {
-      
-       $validate =  $request->validate([
+
+        $validate =  $request->validate([
             'description' => 'nullable|string',
             'user_id' => 'required|exists:users,id',
             'adress' => 'required|string|max:255',
             'postalcode' => 'required|string|max:255',
             'city' => 'required|string|max:255',
-        ]); 
+        ]);
         // dd($validate);
         Collection::create($validate);
 
@@ -68,8 +68,11 @@ class CollectionController extends Controller
     public function update(Request $request, Collection $collection)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+
             'description' => 'nullable|string',
+            'adress' => 'required|string|max:255',
+            'postalcode' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
         ]);
 
         $collection->update($request->all());
