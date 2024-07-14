@@ -4,29 +4,25 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Agricazone</title>
+    <title>Agricazone - Plateforme de Réservation de Produits Agricoles Locaux</title>
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet">
 
-    <!-- Styles -->
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Styles -->
     <style>
         .navbar {
             background-color: #36A793;
-            /* Couleur de fond de la barre de navigation */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            /* Ombre légère sous la barre de navigation */
         }
 
         .navbar-brand {
             font-size: 1.25rem;
-            /* Taille de police de la marque de la barre de navigation */
             font-weight: 600;
-            /* Gras pour la marque */
+            color: #fff;
         }
 
         .navbar .nav-link {
@@ -38,25 +34,62 @@
 
         .navbar .nav-link:hover {
             background-color: #fff;
-            border-radius: 15px;
             color: #36A793;
         }
 
-        .containeritems .itemclick {
+        .jumbotron {
+            background-image: url('images/potager-full.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            height: 500px;
             display: flex;
-
             align-items: center;
-
-            color: #4CAF50;
-
-            text-decoration: none;
-
-            margin-right: 1rem;
-
+            justify-content: center;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        .containeritems .itemclick svg {
-            margin-right: 0.5rem;
+        .jumbotron h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .jumbotron p {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .section {
+            background-color: #f8f9fa;
+            padding: 60px 0;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .section p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        .action-buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .footer {
+            background-color: #36A793;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
         }
     </style>
 </head>
@@ -64,15 +97,16 @@
 <body class="font-sans antialiased dark:bg-gray-900 dark:text-gray-300">
 
     <header>
-        <nav class="navbar navbar-expand-lg fixed-top">
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{ url('/dashboard') }}"><img src="{{ asset('images/logo_agricazone.png') }}" alt="logo agricazone" class="hover:text-gray-200"></a>
+                <a class="navbar-brand" href="{{ url('/dashboard') }}">
+                    <img src="{{ asset('images/logo_agricazone.png') }}" alt="logo agricazone" class="hover:text-gray-200">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
-                        @if (Route::has('login'))
                         @auth
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/dashboard') }}">
@@ -103,23 +137,49 @@
                         </li>
                         @endif
                         @endauth
-                        @endif
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
 
-    <main class="mt-6">
-        <!-- Contenu principal de la page -->
+    <main>
+        <section class="jumbotron">
+            <div class="container">
+                <h1 class="display-4">Bienvenue sur Agricazone</h1>
+                <p class="lead">Votre plateforme pour réserver des produits agricoles locaux et avec une gestion des stocks pour les agriculteurs.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2>Réservez des Produits Agricoles Locaux</h2>
+                        <p>Commandez des produits frais et locaux directement auprès de nos agriculteurs partenaires. Découvrez une variété de produits de saison et des points de collectes près de chez vous.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h2>Gestion de Stock pour Agriculteurs</h2>
+                        <p>Gérez efficacement votre stock avec notre outil intuitif. Suivez vos stocks, gérez les commandes et vos points de collectes pour optimiser votre activité agricole.</p>
+                    </div>
+                </div>
+
+                <div class="text-center action-buttons">
+                    <a href="{{ route('login') }}" class="btn btn-primary mx-2">Connexion</a>
+                    <a href="{{ route('register') }}" class="btn btn-outline-primary mx-2">Inscription</a>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer class="fixed-bottom py-8 text-center text-sm text-black dark:text-gray-400">
-        &copy; 2024 Agricazone. Tous droits réservés.
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Agricazone. Tous droits réservés.</p>
+        </div>
     </footer>
 
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
