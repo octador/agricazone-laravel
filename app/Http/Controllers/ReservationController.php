@@ -137,7 +137,7 @@ class ReservationController extends Controller
         $nouvelleQuantite = $request->input('quantity');
 
 
-        Log::info("Ancienne quantité: $ancienneQuantite, Nouvelle quantité: $nouvelleQuantite, Stock avant ajustement: {$stock->quantity}");
+        // Log::info("Ancienne quantité: $ancienneQuantite, Nouvelle quantité: $nouvelleQuantite, Stock avant ajustement: {$stock->quantity}");
         // Ajuster la quantité du stock
         $stock->quantity = $stock->quantity + $ancienneQuantite - $nouvelleQuantite;
         $stock->update();

@@ -18,12 +18,23 @@ class ProductResource extends Resource
     protected static ?string $model = Product::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationLabel = 'Produits';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->label('Nom'),
+                Forms\Components\Select::make('category_id')
+                    ->relationship('category', 'name')
+                    ->required()
+                    ->label('Catégorie'),
+                Forms\Components\FileUpload::make('image')
+                    ->label('Image')
+                    ->directory('product-images')
+                    ->image(),
             ]);
     }
 
@@ -31,7 +42,13 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id')->label('ID')->sortable(),
+                Tables\Columns\TextColumn::make('name')->label('Nom')->sortable()->searchable(),
+                Tables\Columns\ImageColumn::make('image')->label('Image'),
+                Tables\Columns\TextColumn::make('category.name')->label('Catégorie'),
+                Tables\Columns\TextColumn::make('created_at')->label('Créé le')->dateTime(),
+                Tables\Columns\TextColumn::make('updated_at')->label('Mis à jour le')->dateTime(),
+
             ])
             ->filters([
                 //

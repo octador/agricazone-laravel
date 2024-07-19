@@ -17,7 +17,6 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         $role_id = auth()->user()->role_id;
-
         if ($role_id == 2) {
             return redirect()->route('dashboardFarmer');
         } elseif ($role_id == 3) {

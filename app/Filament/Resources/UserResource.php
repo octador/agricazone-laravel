@@ -3,21 +3,20 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
+use App\Models\Role;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationLabel = 'Utilisateurs';
 
     public static function form(Form $form): Form
     {
@@ -43,7 +42,7 @@ class UserResource extends Resource
                     ->required(),
                 Forms\Components\Select::make('role_id')
                     ->label('Role')
-                    ->options(User::ROLE_OPTIONS)
+                    ->options(Role::pluck('state', 'id')->toArray()) // Pluck pour obtenir les options
                     ->required(),
                 Forms\Components\TextInput::make('email')
                     ->label('Email')
@@ -52,6 +51,9 @@ class UserResource extends Resource
                     ->label('Password')
                     ->password()
                     ->required(),
+                Forms\Components\TextInput::make('remember_token')
+                    ->label('Remember Token')
+                    ->hidden(),
             ]);
     }
 
@@ -59,10 +61,48 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id')
+                    ->label('ID')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Name')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('lastname')
+                    ->label('Lastname')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('address')
+                    ->label('Address')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('postalcode')
+                    ->label('Postalcode')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('city')
+                    ->label('City')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('phone')
+                    ->label('Phone')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('email')
+                    ->label('Email')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('role.state') // Affichage du champ 'state' du modèle Role
+                    ->label('Role')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Created At')
+                    ->dateTime(),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Updated At')
+                    ->dateTime(),
+
             ])
             ->filters([
-                //
+                // Ajoutez des filtres si nécessaire
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -77,7 +117,7 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            // Ajoutez des gestionnaires de relations si nécessaire
         ];
     }
 

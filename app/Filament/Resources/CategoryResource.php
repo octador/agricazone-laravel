@@ -7,6 +7,7 @@ use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -18,23 +19,39 @@ class CategoryResource extends Resource
     protected static ?string $model = Category::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationLabel = 'Catégories';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('id')
+                    ->label('ID')
+                    ->disabled()
+                    ->hidden(),
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->label('Nom'),
+                Forms\Components\FileUpload::make('image')
+                    ->label('Image')
+                    ->directory('category-images')
+                    ->image(),
             ]);
     }
+
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id')->label('ID')->sortable(),
+                Tables\Columns\TextColumn::make('name')->label('Nom')->sortable()->searchable(),
+                Tables\Columns\ImageColumn::make('image')->label('Image'),
+                Tables\Columns\TextColumn::make('created_at')->label('Créé le')->dateTime(),
+                Tables\Columns\TextColumn::make('updated_at')->label('Mis à jour le')->dateTime(),
             ])
             ->filters([
-                //
+                // Ajoutez des filtres si nécessaire
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -48,10 +65,9 @@ class CategoryResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
+
 
     public static function getPages(): array
     {
