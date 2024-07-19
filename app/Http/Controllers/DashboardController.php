@@ -12,8 +12,14 @@ class DashboardController extends Controller
 {
     public function dashboardClient()
     {
-        $user = auth()->user()->id;
-        $categories = Category::paginate(10); // Paginer par 10 éléments
+        $user = auth()->user();
+
+        if ($user->role_id != 3) {
+            return redirect()->route('dashboard');
+        }
+
+
+        $categories = Category::paginate(10);
 
         return view('dashboard.dashboardClient', compact('user', 'categories'));
     }
@@ -21,8 +27,13 @@ class DashboardController extends Controller
 
     public function dashboardFarmer()
     {
-        // je recupere le user connecter
         $user = auth()->user();
+
+        if($user->role_id != 2){
+            return redirect()->route('dashboard');
+        }
+
+
         // je recupere les stock du user connecter
         $stock = Stock::where('user_id', $user->id)->paginate(5);
 

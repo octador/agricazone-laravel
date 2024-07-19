@@ -23,6 +23,8 @@ class RedirectIfNotCustomerOrFarmer
         }
 
         switch ($request->user()->role_id) {
+            case 1:
+                return redirect('/admin');
             case 2:
                 return redirect()->route('dashboardFarmer');
             case 3:
